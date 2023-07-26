@@ -79,8 +79,8 @@ class BrandController extends Controller
 
     public function deleteBrand($id){
         $brand = Brand::findOrFail($id);
-        if(!file_exists(public_path('uploads/brand_images/'.$brand->brand_image))){
-            unlink(public_path() .'uploads/brand_images/'.$brand->brand_image);
+        if(!file_exists(public_path('/uploads/brand_images/'.$brand->brand_image))){
+            unlink(public_path() .'/uploads/brand_images/'.$brand->brand_image);
         }
         $brand->delete();
         return redirect()->back()->with('success' , 'Brand Deleted Successfully');

@@ -71,6 +71,19 @@
           </ul>
         </li>
 
+        <li class="treeview {{($prefix == '/Slider')?'active':''}}">
+            <a href="#">
+              <i data-feather="file"></i>
+              <span>Sliders</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="{{($route == 'all.sliders')? 'active' : ''}}"><a href="{{route('all.sliders')}}"><i class="ti-more"></i>All Sliders</a></li>
+            </ul>
+          </li>
+
         <li class="header nav-small-cap">User Interface</li>
 
         <li class="treeview">
