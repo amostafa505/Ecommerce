@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\frontend\indexController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\Frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\SubSubCategoryController;
@@ -27,7 +28,7 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth:admin')->group(function(){
-    // All Admin Routes
+    // All Backend Routes
     Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verified'])->group(function () {
         Route::get('/admin/dashboard', function () {return view('admin.index');})->name('dashboard')->middleware('auth:admin');
         Route::get('/admin/profile' , [AdminProfileController::class , 'viewprofile'])->name('admin.profile');
@@ -101,6 +102,7 @@ Route::middleware('auth:admin')->group(function(){
 
     });
 });
+
 Route::middleware('admin:admin')->group(function(){
     Route::get('admin/login' , [AdminController::class , 'loginForm']);
     Route::post('admin/login' , [AdminController::class , 'store'])->name('admin.login');
@@ -108,13 +110,20 @@ Route::middleware('admin:admin')->group(function(){
 });
 
 
-// All Home Routes
+// All FrontEnd Routes
 Route::get('/' , [indexController::class , 'index']);
 Route::get('/user/logout' , [indexController::class , 'userLogout'])->name('user.logout');
 Route::get('/edit/profile' , [indexController::class , 'editProfile'])->name('edit.profile');
 Route::Post('/update/profile' , [indexController::class , 'updateProfile'])->name('update.profile');
 Route::get('/user/edit/password' , [indexController::class , 'userEditPassword'])->name('user.edit.password');
 Route::post('/user/update/password' , [indexController::class , 'userUpdatePassword'])->name('user.update.password');
+Route::get('/language/english' , [languageController::class , 'englishLanguage'])->name('english.language');
+Route::get('/language/arabic' , [languageController::class , 'arabicLanguage'])->name('arabic.language');
+
+
+
+
+
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', [indexController::class , 'userProfile'])->name('dashboard');

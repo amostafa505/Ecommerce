@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Models\User;
+use App\Models\Slider;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +13,9 @@ use Illuminate\Support\Facades\Hash;
 class indexController extends Controller
 {
     public function index(){
-        return view('home.index');
+        $categories = Category::latest()->get();
+        $sliders = Slider::where('status' , 1)->orderBy('id' , 'DESC')->limit(3)->get();
+        return view('home.index' , compact('categories' , 'sliders'));
     }//end index
 
     public function userLogout(){
@@ -81,4 +85,6 @@ class indexController extends Controller
         }
 
     }//end update password function
+
+
 }
