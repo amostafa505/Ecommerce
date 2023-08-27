@@ -117,9 +117,16 @@ Route::get('/edit/profile' , [indexController::class , 'editProfile'])->name('ed
 Route::Post('/update/profile' , [indexController::class , 'updateProfile'])->name('update.profile');
 Route::get('/user/edit/password' , [indexController::class , 'userEditPassword'])->name('user.edit.password');
 Route::post('/user/update/password' , [indexController::class , 'userUpdatePassword'])->name('user.update.password');
+
+// Product View
+Route::get('/product/details/{id}/{slug}' , [indexController::class , 'productDetails'])->name('product.details');
+
+//Product Tags View
+Route::get('/product/tag/{slug}' , [indexController::class , 'productTags'])->name('product.tags');
+
+//Main Page View With spacific Language
 Route::get('/language/english' , [languageController::class , 'englishLanguage'])->name('english.language');
 Route::get('/language/arabic' , [languageController::class , 'arabicLanguage'])->name('arabic.language');
-
 
 
 

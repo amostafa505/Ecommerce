@@ -4,9 +4,12 @@ namespace App\Http\Controllers\frontend;
 
 use App\Models\User;
 use App\Models\Slider;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\MultiImg;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +18,12 @@ class indexController extends Controller
     public function index(){
         $categories = Category::latest()->get();
         $sliders = Slider::where('status' , 1)->orderBy('id' , 'DESC')->limit(3)->get();
-        return view('home.index' , compact('categories' , 'sliders'));
+        $products = Product::where('status' , 1)->orderBy('id' , 'DESC')->get();
+        // $hotdeals = Product::where('hot_deals' , 1)->where('status' , 1)->orderBy('id' , 'DESC')->limit(3)->get();
+        // $specialoffer = Product::where('special_offer' , 1)->where('status' , 1)->orderBy('id' , 'DESC')->limit(3)->get();
+        // $specialdeal = Product::where('special_deals' , 1)->where('status' , 1)->orderBy('id' , 'DESC')->limit(3)->get();
+        $featured = Product::where('featured' , 1)->where('status' , 1)->orderBy('id' , 'DESC')->limit(6)->get();
+        return view('frontend.index' , compact('categories' , 'sliders' , 'products', 'featured'));
     }//end index
 
     public function userLogout(){
@@ -32,7 +40,7 @@ class indexController extends Controller
     public function editProfile(){
         $id = Auth::user()->id;
         $user = User::find($id);
-        return view('home.profile.edit_profile' , compact('user'));
+        return view('frontend.profile.edit_profile' , compact('user'));
     }//end EditProfile
 
     public function updateProfile(Request $request){
@@ -64,7 +72,7 @@ class indexController extends Controller
     public function userEditPassword(){
         $id = Auth::user()->id;
         $user = User::find($id);
-        return view('home.profile.edit_password' , compact('user'));
+        return view('frontend.profile.edit_password' , compact('user'));
     }//end userPassword
 
     public function userUpdatePassword(Request $request){
@@ -86,5 +94,18 @@ class indexController extends Controller
 
     }//end update password function
 
+    public function productDetails($id,$slug){
+        $product = Product::findOrfail($id);
+        $multiImg = MultiImg::where('product_id' , $id)->get();
+        return view('frontend.product.product-details',compact('product' , 'multiImg'));
+    }//end Product Details Function
 
+
+    public function productTags($tag){
+        $products = Product::where('product_tags_en' , $tag)->where('product_tags_ar' , $tag)->where('status' , 1)->orderBy('id' , 'DESC')->paginate(6);
+        // $colors = Product::where('product_tags_en' , $tag)->where('product_tags_ar' , $tag)->where('status' , 1)->orderBy('id' , 'DESC')->get();
+        $brands = Brand::latest()->orderBy('id' , 'DESC')->get();
+        $categories = Category::latest()->get();
+        return view('frontend.tags.tagsView' , compact('products' , 'categories','brands'));
+    }//end product Tags Function
 }

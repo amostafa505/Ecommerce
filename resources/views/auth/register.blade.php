@@ -1,4 +1,4 @@
-@extends('home.master')
+@extends('frontend.master')
 @section('content')
 <div class="breadcrumb">
 	<div class="container">
@@ -78,7 +78,7 @@
 <!-- create a new account -->			</div><!-- /.row -->
 		</div><!-- /.sigin-in-->
 		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
-@include('home.body.brands')
+@include('frontend.body.brands')
 <!-- /.logo-slider -->
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
 	</div><!-- /.container -->
