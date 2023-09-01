@@ -9,6 +9,8 @@
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
+    {{-- allow mixed content --}}
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Ecommerce Shop</title>
 
     <!-- Bootstrap Core CSS -->
@@ -27,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/font-awesome.css') }}">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800'
         rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>

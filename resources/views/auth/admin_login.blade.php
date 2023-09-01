@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+	{{-- allow mixed content --}}
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="icon" href="{{asset('backend/images/favicon.ico')}}">
 
     <title>Ecommerce Admin - Log in </title>

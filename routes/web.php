@@ -7,7 +7,7 @@ use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\frontend\indexController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\CategoryController;
-use App\Http\Controllers\Frontend\languageController;
+use App\Http\Controllers\frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\SubSubCategoryController;
