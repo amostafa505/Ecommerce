@@ -39,7 +39,7 @@ class SubSubCategoryController extends Controller
         $SubSubCategory = SubSubCategory::find($id);
         $subcategories = SubCategory::all();
         $categories = Category::all();
-        return view('backend.SubSubCategory.edit_SubSubCategory' , compact('subcategories','SubSubCategory', 'categories'));
+        return view('backend.SubSubCategory.edit_subsubcategory' , compact('subcategories','SubSubCategory', 'categories'));
     }//end edit SubSubCategory
 
     public function updateSubSubCategory(Request $request){

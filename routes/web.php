@@ -7,7 +7,7 @@ use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\frontend\indexController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\CategoryController;
-use App\Http\Controllers\Frontend\languageController;
+use App\Http\Controllers\frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\SubSubCategoryController;
@@ -123,6 +123,13 @@ Route::get('/product/details/{id}/{slug}' , [indexController::class , 'productDe
 
 //Product Tags View
 Route::get('/product/tag/{slug}' , [indexController::class , 'productTags'])->name('product.tags');
+
+//Product With Category & SubCategory & SubSubCategory
+
+Route::get('/product/productWithCateogry/{id}/{slug}', [indexController::class , 'categoryProducts'])->name('category.Products');
+Route::get('/product/productWithsubCateogry/{id}/{slug}', [indexController::class , 'subCategoryProducts'])->name('subCategory.Products');
+Route::get('/product/PWsubsubcategory/{id}', [indexController::class , 'subSubCategoryProducts'])->name('subSubCategory.Products');
+
 
 //Main Page View With spacific Language
 Route::get('/language/english' , [languageController::class , 'englishLanguage'])->name('english.language');

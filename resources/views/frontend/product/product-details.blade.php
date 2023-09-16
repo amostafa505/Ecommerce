@@ -399,11 +399,10 @@
 
                             <div class="item item-carousel">
                                 <div class="products">
-
                                     <div class="product">
                                         <div class="product-image">
                                             <div class="image">
-                                                <a href="detail.html"><img src="assets/images/products/p1.jpg"
+                                                <a href="detail.html"><img src="{{asset('frontend/assets/images/products/p1.jpg')}}"
                                                         alt=""></a>
                                             </div><!-- /.image -->
 
@@ -462,7 +461,7 @@
                                     <div class="product">
                                         <div class="product-image">
                                             <div class="image">
-                                                <a href="detail.html"><img src="assets/images/products/p2.jpg"
+                                                <a href="detail.html"><img src="{{asset('frontend/assets/images/products/p2.jpg')}}"
                                                         alt=""></a>
                                             </div><!-- /.image -->
 
@@ -521,7 +520,7 @@
                                     <div class="product">
                                         <div class="product-image">
                                             <div class="image">
-                                                <a href="detail.html"><img src="assets/images/products/p3.jpg"
+                                                <a href="detail.html"><img src="{{asset('frontend/assets/images/products/p3.jpg')}}"
                                                         alt=""></a>
                                             </div><!-- /.image -->
 
@@ -580,7 +579,7 @@
                                     <div class="product">
                                         <div class="product-image">
                                             <div class="image">
-                                                <a href="detail.html"><img src="assets/images/products/p4.jpg"
+                                                <a href="detail.html"><img src="{{asset('frontend/assets/images/products/p4.jpg')}}"
                                                         alt=""></a>
                                             </div><!-- /.image -->
 
@@ -640,7 +639,7 @@
                                         <div class="product-image">
                                             <div class="image">
                                                 <a href="detail.html"><img src="assets/images/blank.gif"
-                                                        data-echo="assets/images/products/p5.jpg" alt=""></a>
+                                                        data-echo="{{asset('frontend/assets/images/products/p5.jpg')}}" alt=""></a>
                                             </div><!-- /.image -->
 
                                             <div class="tag hot"><span>hot</span></div>
@@ -699,7 +698,7 @@
                                         <div class="product-image">
                                             <div class="image">
                                                 <a href="detail.html"><img src="assets/images/blank.gif"
-                                                        data-echo="assets/images/products/p6.jpg" alt=""></a>
+                                                        data-echo="{{asset('frontend/assets/images/products/p6.jpg')}}" alt=""></a>
                                             </div><!-- /.image -->
 
                                             <div class="tag new"><span>new</span></div>

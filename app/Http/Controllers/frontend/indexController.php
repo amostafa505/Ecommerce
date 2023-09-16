@@ -102,10 +102,33 @@ class indexController extends Controller
 
 
     public function productTags($tag){
-        $products = Product::where('product_tags_en' , $tag)->where('product_tags_ar' , $tag)->where('status' , 1)->orderBy('id' , 'DESC')->paginate(6);
+        $products = Product::where('product_tags_en' , $tag)->orWhere('product_tags_ar' , $tag)->where('status' , 1)->orderBy('id' , 'DESC')->paginate(6);
+        // dd($products);
         // $colors = Product::where('product_tags_en' , $tag)->where('product_tags_ar' , $tag)->where('status' , 1)->orderBy('id' , 'DESC')->get();
         $brands = Brand::latest()->orderBy('id' , 'DESC')->get();
         $categories = Category::latest()->get();
         return view('frontend.tags.tagsView' , compact('products' , 'categories','brands'));
     }//end product Tags Function
+
+
+    public function categoryProducts($id,$slug){
+        $products = Product::where('category_id' , $id)->where('status' , 1)->orderBy('id' , 'DESC')->paginate(6);
+        $brands = Brand::latest()->orderBy('id' , 'DESC')->get();
+        $categories = Category::latest()->get();
+        return view('frontend.product.productFilters' , compact('products' , 'categories','brands'));
+    }//end product CategoryProducts Function
+
+    public function subCategoryProducts($id,$slug){
+        $products = Product::where('subcategory_id' , $id)->where('status' , 1)->orderBy('id' , 'DESC')->paginate(6);
+        $brands = Brand::latest()->orderBy('id' , 'DESC')->get();
+        $categories = Category::latest()->get();
+        return view('frontend.product.productFilters' , compact('products' , 'categories','brands'));
+    }//end product subCategoryProducts Function
+
+    public function subSubCategoryProducts($id,$slug){
+        $products = Product::where('subsubcategory_id' , $id)->where('status' , 1)->orderBy('id' , 'DESC')->paginate(6);
+        $brands = Brand::latest()->orderBy('id' , 'DESC')->get();
+        $categories = Category::latest()->get();
+        return view('frontend.product.productFilters' , compact('products' , 'categories','brands'));
+    }//end product subsubCategoryProducts Function
 }

@@ -17,13 +17,13 @@ class ProductController extends Controller
 {
     public function viewProduct(){
         $products = Product::latest()->get();
-        return view('backend.product.all_products' , compact('products'));
+        return view('backend.Product.all_products' , compact('products'));
     }//end view function
 
     public function addProduct(){
         $categories = Category::latest()->get();
         $brands = Brand::latest()->get();
-        return view('backend.product.add_product' , compact('categories' ,'brands'));
+        return view('backend.Product.add_product' , compact('categories' ,'brands'));
     }//end addProduct function
 
     public function store(Request $request){
@@ -94,7 +94,7 @@ class ProductController extends Controller
         $brands = Brand::latest()->get();
         $product = Product::find($id);
         $multi_image = MultiImg::where('product_id', $id)->get();
-        return view('backend.product.edit_product' , compact('categories', 'subcategories' , 'subsubcategories' , 'brands' , 'product' , 'multi_image'));
+        return view('backend.Product.edit_product' , compact('categories', 'subcategories' , 'subsubcategories' , 'brands' , 'product' , 'multi_image'));
     }//end method
 
     public function updateProduct(Request $request){
