@@ -12,7 +12,7 @@
         <div class="accordion-group">
           <div class="accordion-heading">
             <a href="#collapse{{$category->id}}" data-toggle="collapse" class="accordion-toggle collapsed">
-                <a href="#">@if(session()->get('language') == 'arabic') {{$category->category_name_ar}} @else {{$category->category_name_en}} @endif </a>
+                <a href="{{route('category.Products',[$category->id , $category->category_slug_en])}}">@if(session()->get('language') == 'arabic') {{$category->category_name_ar}} @else {{$category->category_name_en}} @endif </a>
                 
             </a> 
            </div>
@@ -28,6 +28,7 @@
                         <a href="{{route('subCategory.Products',[$subcategory->id,$subcategory->subcategory_slug_en])}}">
                             @if(session()->get('language') == 'arabic') {{$subcategory->subcategory_name_ar}} @else {{$subcategory->subcategory_name_en}} @endif
                         </a>
+                        
                     </li>
                 @endforeach
               </ul>

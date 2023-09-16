@@ -96,9 +96,24 @@ class indexController extends Controller
 
     public function productDetails($id,$slug){
         $product = Product::findOrfail($id);
+
+        $color_en = $product->product_color_en;
+        $productColorEn= explode(',' , $color_en);
+
+        $color_ar = $product->product_color_ar;
+        $productColorAr= explode(',' , $color_ar);
+
+        $size_en = $product->product_size_en;
+        $productSizeEn= explode(',' , $size_en);
+
+        $size_ar = $product->product_size_ar;
+        $productSizeAr= explode(',' , $size_ar);
+        $productCategory =$product->category_id;
+        $relatedProducts = Product::where('category_id',$productCategory)->where('id' , '!=' , $id)->orderBy('id' , 'DESC')->get();
         $multiImg = MultiImg::where('product_id' , $id)->get();
-        return view('frontend.product.product-details',compact('product' , 'multiImg'));
+        return view('frontend.product.product-details',compact('product' , 'multiImg' , 'productColorEn', 'productColorAr','productSizeEn','productSizeAr','relatedProducts'));
     }//end Product Details Function
+
 
 
     public function productTags($tag){

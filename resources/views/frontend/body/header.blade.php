@@ -201,7 +201,7 @@
                                                         @endphp
                                                         @foreach($subsubcategories as $subsubcategory)
                                                             <li>
-                                                                <a href="{{route('subCategory.Products',[$subsubcategory->id , $subsubcategory->subsubcategory_slug_en])}}">
+                                                                <a href="{{route('subSubCategory.Products',[$subsubcategory->id , $subsubcategory->subsubcategory_slug_en])}}">
                                                                     @if(session()->get('language') == 'arabic') {{$subsubcategory->subsubcategory_name_ar}} @else {{$subsubcategory->subsubcategory_name_en}} @endif
                                                                 </a>
                                                             </li>
