@@ -190,25 +190,28 @@
                                                     @endphp
                                                     @foreach($subcategories as $subcategory)
                                                     <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
+                                                        
                                                         <a href="{{route('subCategory.Products',[$subcategory->id , $subcategory->subcategory_slug_en])}}" >
                                                              <h2 class="title">@if(session()->get('language') == 'arabic') {{$subcategory->subcategory_name_ar}} @else {{$subcategory->subcategory_name_en}} @endif</h2>
                                                         </a>
                                                     <ul class="links">
                                                         @php
                                                             $subsubcategories = App\Models\SubSubCategory::where('subcategory_id' , $subcategory->id)->latest()->get();
+                                                            // dd($subsubcategories)
                                                         @endphp
                                                         @foreach($subsubcategories as $subsubcategory)
                                                             <li>
-                                                                <a href="{{route('subSubCategory.Products',[$subsubcategory->id , $subsubcategory->subsubcategory_slug_en])}}">
+                                                                <a href="{{route('subCategory.Products',[$subsubcategory->id , $subsubcategory->subsubcategory_slug_en])}}">
                                                                     @if(session()->get('language') == 'arabic') {{$subsubcategory->subsubcategory_name_ar}} @else {{$subsubcategory->subsubcategory_name_en}} @endif
                                                                 </a>
                                                             </li>
                                                         @endforeach
+                                                        
                                                     </ul>
                                                     </div>
 
                                                     @endforeach
-
+                                                    
                                                 <!-- /.col -->
                                                 <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
                                                     <img class="img-responsive"

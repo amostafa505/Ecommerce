@@ -26,8 +26,8 @@ class SubSubCategoryController extends Controller
         SubSubCategory::Create([
             'subsubcategory_name_en' =>$request->subsubcategory_name_en,
             'subsubcategory_name_ar' =>$request->subsubcategory_name_ar,
-            'subsubcategory_slug_en' =>strtolower((str_replace(' ' , '-' ,$request->subsubsategory_name_en))),
-            'subsubcategory_slug_ar' =>(str_replace(' ' , '-' ,$request->subsubsategory_name_ar)),
+            'subsubcategory_slug_en' =>strtolower((str_replace(' ' , '-' ,$request->subsubcategory_name_en))),
+            'subsubcategory_slug_ar' =>(str_replace(' ' , '-' ,$request->subsubcategory_name_ar)),
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
         ]);
@@ -50,8 +50,8 @@ class SubSubCategoryController extends Controller
         SubSubCategory::find($request->id)->update([
             'subsubcategory_name_en' =>$request->subsubcategory_name_en,
             'subsubcategory_name_ar' =>$request->subsubcategory_name_ar,
-            'subsubcategory_slug_en' =>strtolower((str_replace(' ' , '-' ,$request->subsubsategory_name_en))),
-            'subsubcategory_slug_ar' =>(str_replace(' ' , '-' ,$request->subsubsategory_name_ar)),
+            'subsubcategory_slug_en' =>strtolower((str_replace(' ' , '-' ,$request->subsubcategory_name_en))),
+            'subsubcategory_slug_ar' =>(str_replace(' ' , '-' ,$request->subsubcategory_name_ar)),
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
         ]);

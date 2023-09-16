@@ -128,7 +128,7 @@ Route::get('/product/tag/{slug}' , [indexController::class , 'productTags'])->na
 
 Route::get('/product/productWithCateogry/{id}/{slug}', [indexController::class , 'categoryProducts'])->name('category.Products');
 Route::get('/product/productWithsubCateogry/{id}/{slug}', [indexController::class , 'subCategoryProducts'])->name('subCategory.Products');
-Route::get('/product/PWsubsubcategory/{id}', [indexController::class , 'subSubCategoryProducts'])->name('subSubCategory.Products');
+Route::get('/product/PWsubsubcategory/{id}/{slug}', [indexController::class , 'subSubCategoryProducts'])->name('subSubCategory.Products');
 
 
 //Main Page View With spacific Language
