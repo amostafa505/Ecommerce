@@ -146,4 +146,20 @@ class indexController extends Controller
         $categories = Category::latest()->get();
         return view('frontend.product.productFilters' , compact('products' , 'categories','brands'));
     }//end product subsubCategoryProducts Function
+
+    public function productModalAjax($id){
+        $product = Product::with('category', 'brand')->findOrfail($id);
+
+        $color_en = $product->product_color_en;
+        $productColor= explode(',' , $color_en);
+
+        $size_en = $product->product_size_en;
+        $productSize= explode(',' , $size_en);
+
+        return response()->json(array(
+            'product' => $product,
+            'color' => $productColor,
+            'size' => $productSize,
+        ));
+    }
 }

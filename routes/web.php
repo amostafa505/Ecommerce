@@ -121,6 +121,9 @@ Route::post('/user/update/password' , [indexController::class , 'userUpdatePassw
 // Product View
 Route::get('/product/details/{id}/{slug}' , [indexController::class , 'productDetails'])->name('product.details');
 
+//product Modal View With Ajax
+Route::get('/product/view/modal/{id}' , [indexController::class , 'productModalAjax'])->name('productViewAjax');
+
 //Product Tags View
 Route::get('/product/tag/{slug}' , [indexController::class , 'productTags'])->name('product.tags');
 
@@ -129,6 +132,7 @@ Route::get('/product/tag/{slug}' , [indexController::class , 'productTags'])->na
 Route::get('/product/productWithCateogry/{id}/{slug}', [indexController::class , 'categoryProducts'])->name('category.Products');
 Route::get('/product/productWithsubCateogry/{id}/{slug}', [indexController::class , 'subCategoryProducts'])->name('subCategory.Products');
 Route::get('/product/PWsubsubcategory/{id}/{slug}', [indexController::class , 'subSubCategoryProducts'])->name('subSubCategory.Products');
+
 
 
 //Main Page View With spacific Language
