@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\frontend\indexController;
+use App\Http\Controllers\frontend\languageController;
+use App\Http\Controllers\frontend\cartController;
 use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\SliderController;
-use App\Http\Controllers\frontend\indexController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\CategoryController;
-use App\Http\Controllers\frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\SubSubCategoryController;
@@ -123,6 +124,12 @@ Route::get('/product/details/{id}/{slug}' , [indexController::class , 'productDe
 
 //product Modal View With Ajax
 Route::get('/product/view/modal/{id}' , [indexController::class , 'productModalAjax'])->name('productViewAjax');
+
+//Product Store to Cart
+Route::POST('/cart/data/store/{id}' , [cartController::class , 'addToCart'])->name('productStoreAjax');
+
+//Product View to MiniCart
+Route::get('/product/getminicart' , [cartController::class , 'viewMiniCart'])->name('productViewAjax');
 
 //Product Tags View
 Route::get('/product/tag/{slug}' , [indexController::class , 'productTags'])->name('product.tags');

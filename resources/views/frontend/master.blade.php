@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="">
-    <meta name="csrf-token" content="{{csrf_token()}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
@@ -57,7 +57,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel"><span id="pname"></span></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -86,23 +86,22 @@
                 <div class="col-md-4">
                     <div class="form-group" id="colorArea">
                         <label for="exampleFormControlSelect1">Color</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="color">
+                        <select class="form-control" id="color" name="color">
                           <option selected disableds>Select Color</option>
                         </select>
                       </div>
                       <div class="form-group" id="sizeArea">
                         <label for="exampleFormControlSelect1">Size</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="size">
+                        <select class="form-control" id="size" name="size">
                           <option selected disabled>Select Size</option>
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="exampleFormControlSelect1">Example select</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option>1</option>
-                        </select>
+                        <label for="qty">Product Quantity</label>
+                        <input type="number" class="form-control" id="qty" value="1" min="1">
                       </div>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                      <input type="hidden" id="pid" name="product_id">
+                      <button type="submit" class="btn btn-primary" onclick="addtocart()">Add To Cart</button>
                 </div> {{-- //end col md  --}}
               </div>
             </div>
@@ -125,15 +124,16 @@
     <script src="{{ asset('frontend/assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script type="text/javascript">
         $.ajaxSetup({
-            headers:{
-                'X-CSRF-TOKEN' : $('meta[name="[csrf-token]"]').attr('content')
-            }
-
-        })    
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        }); 
+        //Start Cart Modal View 
             function productView(id){
                $.ajax({
                 type: 'GET',
@@ -141,11 +141,13 @@
                 datatype: 'json',
                 success:function(data){
                     // console.log(data)
-                    $('#pname').text(data.product.product_name_en)
-                    $('#pcode').text(data.product.product_code)
-                    $('#pcategory').text(data.product.category.category_name_en)
-                    $('#pbrand').text(data.product.brand.brand_name_en)
-                    $('#productImage').attr('src', '/uploads/products/thambnails/'+data.product.product_thambnail)
+                    $('#pname').text(data.product.product_name_en);
+                    $('#pcode').text(data.product.product_code);
+                    $('#pcategory').text(data.product.category.category_name_en);
+                    $('#pbrand').text(data.product.brand.brand_name_en);
+                    $('#productImage').attr('src', '/uploads/products/thambnails/'+data.product.product_thambnail);
+                    $('#pid').val(id);
+                    $('#qty').val(1);
 
                     //product price
                     if(data.product.discount_price == null){
@@ -190,8 +192,99 @@
                 }
                })
             }
+            //end Cart Modal View
+
+            //Store Cart Method
+            function addtocart(){
+              var product_name = $('#pname').text();
+              var id = $('#pid').val();
+              var color = $('#color option:selected').text();
+              var size = $('#size option:selected').text();
+              var quantity = $('#qty').val();
+              $.ajax({
+                type:"POST",
+                dataType:'json',
+                data:{color:color , size:size , quantity:quantity , product_name:product_name},
+                url : "/cart/data/store/"+id,
+                success: function(data){
+                  $('#closeModal').click();
+                  console.log(data);
+
+                  //Start SweetAlert Message
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    showconfirmButton: false,
+                    timer: 3000,
+                  })
+                  if($.isEmptyObject(data.error)){
+                    Toast.fire({
+                      type: 'success',
+                      title: data.success
+                    })
+                  }else{
+                    Toast.fire({
+                      type: 'error',
+                      title: data.error
+                    })
+                  }
+
+                  //end SweetAlert Message
+                }
+              })
+            }
+
         
     </script>
+    <script type="text/javascript">
+      function minicart(){
+        $.ajax({
+          type: 'GET',
+          url: '/product/getminicart',
+          dataType: 'json',
+          success:function(response){
+                console.log(response)
+            var minicart = "";
+            $.each(response.carts , function(key , value){
+              minicart += 
+              `<div class="cart-item product-summary">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="image"> <a href="detail.html"><img
+                                        src="/uploads/products/thambnails/${value.options.image}" alt=""></a> </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
+                            <div class="price">$600.00</div>
+                        </div>
+                        <div class="col-xs-1 action"> <a href="#"><i
+                                    class="fa fa-trash"></i></a> </div>
+                    </div>
+                </div>
+                <!-- /.cart-item -->
+                <div class="clearfix"></div>
+                <hr>
+                <div class="clearfix cart-total">
+                    <div class="pull-right"> <span class="text">Sub Total :</span><span
+                            class='price'>$600.00</span> </div>
+                    <div class="clearfix"></div>
+                    <a href="checkout.html"
+                        class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+              </div>
+                <!-- /.cart-total-->`
+            })
+
+          }
+        })
+      }
+      minicart();
+
+
+
+
+    </script>
+
 </body>
 
 </html>

@@ -89,7 +89,7 @@
                             </div><!-- /.gallery-holder -->
                             <div class='col-sm-6 col-md-7 product-info-block'>
                                 <div class="product-info">
-                                    <h1 class="name">
+                                    <h1 class="name" id="pname">
                                         @if (session()->get('language') == 'arabic')
                                             {{ $product->product_name_ar }}
                                         @else
@@ -173,27 +173,34 @@
                                     </div><!-- /.price-container -->
                                     <div class="quantity-container info-container">
                                         <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label class="info-title control-label">Color <span></span></label>
-                                                <select class="form-control unicase-form-control selectpicker">
-                                                    <option selected disabled>--Choose Color--</option>
-                                                    @if (session()->get('language') == 'arabic')
-                                                        @foreach ($productColorAr as $color)
-                                                            <option value="{{ $color }}">{{ $color }}
-                                                            </option>
-                                                        @endforeach
-                                                    @else
-                                                        @foreach ($productColorEn as $color)
-                                                            <option value="{{ $color }}">{{ ucfirst($color) }}
-                                                            </option>
-                                                        @endforeach
-                                                    @endif
+                                            @if($product->product_color_en == NULL)
 
-                                                </select>
-                                            </div>
+                                            @else
+                                                <div class="form-group col-md-6">
+                                                    <label class="info-title control-label">Color <span></span></label>
+                                                    <select class="form-control unicase-form-control selectpicker" id="color">
+                                                        <option selected disabled>--Choose Color--</option>
+                                                        @if (session()->get('language') == 'arabic')
+                                                            @foreach ($productColorAr as $color)
+                                                                <option value="{{ $color }}">{{ $color }}
+                                                                </option>
+                                                            @endforeach
+                                                        @else
+                                                            @foreach ($productColorEn as $color)
+                                                                <option value="{{ $color }}">{{ ucfirst($color) }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+
+                                                    </select>
+                                                </div>
+                                            @endif
+                                            @if($product->product_size_en == NULL)
+
+                                            @else
                                             <div class="form-group col-md-6">
                                                 <label class="info-title control-label">Size <span></span></label>
-                                                <select class="form-control unicase-form-control selectpicker">
+                                                <select class="form-control unicase-form-control selectpicker" id="size">
                                                     <option selected disabled>--Choose Size--</option>
                                                     @if (session()->get('language') == 'arabic')
                                                     @foreach ($productSizeAr as $size)
@@ -208,6 +215,7 @@
                                                 @endif
                                                 </select>
                                             </div>
+                                        @endif
                                         </div>
                                     </div>{{-- //Color And Size Containter --}}
                                     <div class="quantity-container info-container">
@@ -226,14 +234,15 @@
                                                             <div class="arrow minus gradient"><span class="ir"><i
                                                                         class="icon fa fa-sort-desc"></i></span></div>
                                                         </div>
-                                                        <input type="text" value="1">
-                                                    </div>
+                                                        <input type="number" class="form-control" id="qty" value="1" min="1">                                                    </div>
                                                 </div>
                                             </div>
-
+                                            <input type="hidden" id="pid" name="product_id" value="{{$product->id}}" min="1">
                                             <div class="col-sm-7">
-                                                <a href="#" class="btn btn-primary"><i
-                                                        class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+                                                <button type="submit" class="btn btn-primary" onclick="addtocart()"><i
+                                                    class="fa fa-shopping-cart inner-right-vs"></i>ADD TO CART</button>
+                                                {{-- <a href="#" class="btn btn-primary"><i
+                                                        class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a> --}}
                                             </div>
 
 
