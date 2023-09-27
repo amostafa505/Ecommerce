@@ -207,9 +207,8 @@
                 data:{color:color , size:size , quantity:quantity , product_name:product_name},
                 url : "/cart/data/store/"+id,
                 success: function(data){
+                  minicart();
                   $('#closeModal').click();
-                  console.log(data);
-
                   //Start SweetAlert Message
                   const Toast = Swal.mixin({
                     toast: true,
@@ -244,10 +243,13 @@
           url: '/product/getminicart',
           dataType: 'json',
           success:function(response){
-                console.log(response)
-            var minicart = "";
-            $.each(response.carts , function(key , value){
-              minicart += 
+            console.log(response);
+            
+            $('span[id="cartTotal"]').text(response.cartTotal);
+            $('span[id="cartQty"]').text(response.cartQty);
+            var miniCart = "";
+            $.each(response.carts , function(key,value){
+              miniCart += 
               `<div class="cart-item product-summary">
                     <div class="row">
                         <div class="col-xs-4">
@@ -255,32 +257,61 @@
                                         src="/uploads/products/thambnails/${value.options.image}" alt=""></a> </div>
                         </div>
                         <div class="col-xs-7">
-                            <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
-                            <div class="price">$600.00</div>
+                            <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+                            <div class="price">${value.price} * ${value.qty}</div>
                         </div>
-                        <div class="col-xs-1 action"> <a href="#"><i
-                                    class="fa fa-trash"></i></a> </div>
+                        <div class="col-xs-1 action">
+                           <button id="${value.rowId}" onclick="miniCartRemove(this.id)"><i
+                                    class="fa fa-trash"></i></button> </div>
                     </div>
                 </div>
                 <!-- /.cart-item -->
                 <div class="clearfix"></div>
                 <hr>
-                <div class="clearfix cart-total">
-                    <div class="pull-right"> <span class="text">Sub Total :</span><span
-                            class='price'>$600.00</span> </div>
-                    <div class="clearfix"></div>
-                    <a href="checkout.html"
-                        class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+
               </div>
                 <!-- /.cart-total-->`
-            })
-
+            });
+            
+            $('#miniCart').html(miniCart);
           }
         })
       }
       minicart();
 
+///// Mini Cart Remove button 
+      function miniCartRemove(rowid){
+        $.ajax({
+          type: 'GET',
+          url: '/product/removeminicart/'+rowid,
+          dataType: 'json',
+          success:function(data){
+            minicart();
 
+                //Start SweetAlert Message
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    showconfirmButton: false,
+                    timer: 3000,
+                  })
+                  if($.isEmptyObject(data.error)){
+                    Toast.fire({
+                      type: 'success',
+                      title: data.success
+                    })
+                  }else{
+                    Toast.fire({
+                      type: 'error',
+                      title: data.error
+                    })
+                  }
+
+                  //end SweetAlert Message
+          }
+        })
+      }
 
 
     </script>

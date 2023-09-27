@@ -52,12 +52,19 @@ class cartController extends Controller
 	public function viewMiniCart(){
 		$carts = Cart::content();
 		$cartQty = Cart::count();
-		$cartTotal = Cart::total();
-
+		$cartTotal = Cart::subtotal($decimals = 0);
+		
 		return response()->json(array(
 			'carts' => $carts,
 			'cartQty' => $cartQty,
-			'cartTotal' => round($cartTotal),
+			'cartTotal' => $cartTotal,
 		));
 	}//End Add to viewMiniCart Function
+
+
+	public function removeMiniCart($id){
+		Cart::remove($id);
+		
+		return response()->json(['success' => 'Product Removed From Cart']);
+	}//End Add to removeMiniCart Function
 }

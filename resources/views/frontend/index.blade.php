@@ -1078,7 +1078,7 @@
                         </div>
                         <!-- /.item -->
 
-                        <div class="item item-carousel">
+                        {{-- <div class="item item-carousel">
                             <div class="products">
                                 <div class="product">
                                     <div class="product-image">
@@ -1126,7 +1126,7 @@
                             </div>
                             <!-- /.products -->
                         </div>
-                        <!-- /.item -->
+                        <!-- /.item --> --}}
 
                         <div class="item item-carousel">
                             <div class="products">

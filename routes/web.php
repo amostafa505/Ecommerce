@@ -129,7 +129,10 @@ Route::get('/product/view/modal/{id}' , [indexController::class , 'productModalA
 Route::POST('/cart/data/store/{id}' , [cartController::class , 'addToCart'])->name('productStoreAjax');
 
 //Product View to MiniCart
-Route::get('/product/getminicart' , [cartController::class , 'viewMiniCart'])->name('productViewAjax');
+Route::get('/product/getminicart/' , [cartController::class , 'viewMiniCart'])->name('productViewAjax');
+
+//Product remove from MiniCart
+Route::get('/product/removeminicart/{rowid}' , [cartController::class , 'removeMiniCart'])->name('productRemoveAjax');
 
 //Product Tags View
 Route::get('/product/tag/{slug}' , [indexController::class , 'productTags'])->name('product.tags');
