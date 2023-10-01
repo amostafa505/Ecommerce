@@ -12,6 +12,7 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\SubSubCategoryController;
+use App\Http\Controllers\User\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,8 +138,17 @@ Route::get('/product/removeminicart/{rowid}' , [cartController::class , 'removeM
 //Product Tags View
 Route::get('/product/tag/{slug}' , [indexController::class , 'productTags'])->name('product.tags');
 
-//Product With Category & SubCategory & SubSubCategory
+//Add To Wishlist
+Route::POST('/addToWishList/{id}' , [cartController::class , 'addToWishlist'])->name('addToWishilist');
 
+//View Wishlist
+Route::get('/view/wishlist/' , [WishlistController::class , 'viewWishlist'])->name('wishlist');
+
+//Remove from Wishlist
+Route::get('/wishlist/remove/{id}' , [WishlistController::class , 'deleteWishlist'])->name('deleteWishlist');
+
+
+//Product With Category & SubCategory & SubSubCategory
 Route::get('/product/productWithCateogry/{id}/{slug}', [indexController::class , 'categoryProducts'])->name('category.Products');
 Route::get('/product/productWithsubCateogry/{id}/{slug}', [indexController::class , 'subCategoryProducts'])->name('subCategory.Products');
 Route::get('/product/PWsubsubcategory/{id}/{slug}', [indexController::class , 'subSubCategoryProducts'])->name('subSubCategory.Products');

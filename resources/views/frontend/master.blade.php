@@ -213,22 +213,22 @@
                   const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
-                    icon: 'success',
                     showconfirmButton: false,
                     timer: 3000,
                   })
                   if($.isEmptyObject(data.error)){
                     Toast.fire({
                       type: 'success',
+                      icon: 'success',
                       title: data.success
                     })
                   }else{
                     Toast.fire({
                       type: 'error',
+                      icon: 'error',
                       title: data.error
                     })
                   }
-
                   //end SweetAlert Message
                 }
               })
@@ -287,27 +287,26 @@
           dataType: 'json',
           success:function(data){
             minicart();
-
-                //Start SweetAlert Message
+                  //Start SweetAlert Message
                   const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
-                    icon: 'success',
                     showconfirmButton: false,
                     timer: 3000,
                   })
                   if($.isEmptyObject(data.error)){
                     Toast.fire({
                       type: 'success',
+                      icon: 'success',
                       title: data.success
                     })
                   }else{
                     Toast.fire({
                       type: 'error',
+                      icon: 'error',
                       title: data.error
                     })
                   }
-
                   //end SweetAlert Message
           }
         })
@@ -316,6 +315,74 @@
 
     </script>
 
+
+{{-- ////// WishList Section --}}
+<script>
+            //Store Cart Method
+            function addToWishlist(product_id){
+              $.ajax({
+                type:"POST",
+                dataType:'json',
+                url : "/addToWishList/"+product_id,
+                success: function(data){
+                  
+                  //Start SweetAlert Message
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showconfirmButton: false,
+                    timer: 3000,
+                  })
+                  if($.isEmptyObject(data.error)){
+                    Toast.fire({
+                      type: 'success',
+                      icon: 'success',
+                      title: data.success
+                    })
+                  }else{
+                    Toast.fire({
+                      type: 'error',
+                      icon: 'error',
+                      title: data.error
+                    })
+                  }
+
+                  //end SweetAlert Message
+                }
+              })
+            }
+
+///// wishlist Remove button 
+function wishlistRemove(id){
+        $.ajax({
+          type: 'get',
+          url: '/wishlist/remove/'+id,
+          dataType: 'json',
+          success:function(data){
+            //Start SweetAlert Message
+            Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Swal.fire(
+                      'Deleted!',
+                      'Your file has been deleted.',
+                      'success'
+                      )
+                      window.location.reload();
+                  }
+                })
+                  //end SweetAlert Message
+          }
+        })
+      }
+</script>
 </body>
 
 </html>
