@@ -243,7 +243,6 @@
           url: '/product/getminicart',
           dataType: 'json',
           success:function(response){
-            console.log(response);
             
             $('span[id="cartTotal"]').text(response.cartTotal);
             $('span[id="cartQty"]').text(response.cartQty);
@@ -383,6 +382,136 @@ function wishlistRemove(id){
         })
       }
 </script>
+
+{{-- ///View MyCart Products --}}
+<script>
+function mycart(){
+        $.ajax({
+          type: 'GET',
+          url: '/product/getminicart',
+          dataType: 'json',
+          success:function(response){
+            console.log(response)
+            var myCart = "";
+            $.each(response.carts , function(key,value){
+              myCart += 
+              `<tr>
+                    <td class="cart-image">
+                        <a class="entry-thumbnail" href="detail.html">
+                            <img src="/uploads/products/thambnails/${value.options.image}" alt="">
+						</a>
+					</td>
+					<td class="cart-product-name-info">
+						<h4 class='cart-product-description'><a href="detail.html">${value.name}</a></h4>
+						{{-- <div class="row">
+                            <div class="col-sm-4">
+                                <div class="rating rateit-small"></div>
+							</div>
+							<div class="col-sm-8">
+                                <div class="reviews">
+                                    (06 Reviews)
+								</div>
+							</div>
+						</div><!-- /.row --> --}}
+						<div class="cart-product-info">
+                            <span class="product-color">COLOR:<span>${value.options.color}</span></span>
+                        </div>
+                    </td>
+                    <td class="cart-product-grand-total"><span class="cart-grand-total-price">$300.00</span>
+                    </td>
+                    <td class="cart-product-quantity">
+                        <div class="quant-input">
+                            <div class="arrows">
+                                <a class="arrow plus gradient" id="${value.rowId}" onclick="cartIncrement(this.id)"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></a>
+                                ${value.qty > 1
+                                ? `<a class="arrow minus gradient" id="${value.rowId}" onclick="cartDecrement(this.id)"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></a>`
+                                : `<a class="arrow minus gradient" disabled=""><span class="ir"><i class="icon fa fa-sort-desc"></i></span></a>`
+                                }
+                                
+                            </div>
+                            <input type="text" value="${value.qty}" min="1" max="100" disabled="">
+                        </div>
+                    </td>
+                    <td class="cart-product-sub-total"><span class="cart-sub-total-price">$${value.subtotal}</span></td>
+                    <td class="romove-item"><button id="${value.rowId}" onclick="CartRemove(this.id)" title="cancel" class="icon"><i class="fa fa-trash-o"></i></button>
+                    </td>
+				</tr>`
+            });
+            
+            $('#myCart').html(myCart);
+          }
+        })
+      }
+      mycart();
+
+// -------- CART INCREMENT --------//
+function cartIncrement(rowId){
+        $.ajax({
+            type:'GET',
+            url: "/cart-increment/"+rowId,
+            dataType:'json',
+            success:function(data){
+                mycart();
+                minicart();
+            }
+        });
+    }
+
+ // -------- CART INCREMENT --------//
+function cartDecrement(rowId){
+        $.ajax({
+            type:'GET',
+            url: "/cart-Decrement/"+rowId,
+            dataType:'json',
+            success:function(data){
+                mycart();
+                minicart();
+            }
+        });
+    }   
+
+    ///// Mini Cart Remove button 
+    function CartRemove(rowid){
+        $.ajax({
+          type: 'GET',
+          url: '/cartPage/remove/'+rowid,
+          dataType: 'json',
+          success:function(data){
+            mycart();
+            minicart();
+                  //Start SweetAlert Message
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showconfirmButton: false,
+                    timer: 3000,
+                  })
+                  if($.isEmptyObject(data.error)){
+                    Toast.fire({
+                      type: 'success',
+                      icon: 'success',
+                      title: data.success
+                    })
+                  }else{
+                    Toast.fire({
+                      type: 'error',
+                      icon: 'error',
+                      title: data.error
+                    })
+                  }
+                  //end SweetAlert Message
+          }
+        })
+      }
+
+</script>
+
+
+
+
+
+
+
 </body>
 
 </html>

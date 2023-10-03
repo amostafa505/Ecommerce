@@ -12,6 +12,7 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\SubSubCategoryController;
+use App\Http\Controllers\User\CartPageController;
 use App\Http\Controllers\User\WishlistController;
 
 /*
@@ -165,6 +166,24 @@ Route::get('/language/arabic' , [languageController::class , 'arabicLanguage'])-
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', [indexController::class , 'userProfile'])->name('dashboard');
+    //Add To Wishlist
+    Route::POST('/addToWishList/{id}' , [cartController::class , 'addToWishlist'])->name('addToWishilist');
+
+    //View Wishlist
+    Route::get('/view/wishlist/' , [WishlistController::class , 'viewWishlist'])->name('wishlist');
+
+    //Remove from Wishlist
+    Route::get('/wishlist/remove/{id}' , [WishlistController::class , 'deleteWishlist'])->name('deleteWishlist');
+
+    //View Cart Page
+    Route::get('/view/cartPage/' , [CartPageController::class , 'viewCartPage'])->name('Mycart');
+
+    //Remove from Cart Page
+    Route::get('/cartPage/remove/{rowId}' , [CartPageController::class , 'RemoveCartProduct'])->name('deleteCartProduct');
+
+    Route::get('/cart-increment/{rowId}', [CartPageController::class, 'CartIncrement']);
+
+    Route::get('/cart-Decrement/{rowId}', [CartPageController::class, 'CartDecrement']);
 });
 
 
