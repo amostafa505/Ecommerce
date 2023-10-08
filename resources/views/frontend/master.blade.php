@@ -391,8 +391,9 @@ function mycart(){
           url: '/product/getminicart',
           dataType: 'json',
           success:function(response){
-            console.log(response)
+            // console.log(response.carts != 0 )
             var myCart = "";
+            if(response.carts != 0){
             $.each(response.carts , function(key,value){
               myCart += 
               `<tr>
@@ -437,6 +438,10 @@ function mycart(){
                     </td>
 				</tr>`
             });
+          }else{
+            myCart +=
+            `<tr>	<td class="cart-product-name-info"><h5 ><strong class="text-danger">No Items You Wished Yet</strong></h5></td></tr>`
+          }
             
             $('#myCart').html(myCart);
           }

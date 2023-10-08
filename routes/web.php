@@ -2,18 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\frontend\indexController;
-use App\Http\Controllers\frontend\languageController;
-use App\Http\Controllers\frontend\cartController;
 use App\Http\Controllers\backend\BrandController;
+use App\Http\Controllers\frontend\cartController;
+use App\Http\Controllers\User\CartPageController;
+use App\Http\Controllers\User\WishlistController;
+use App\Http\Controllers\backend\CouponController;
 use App\Http\Controllers\backend\SliderController;
+use App\Http\Controllers\frontend\indexController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\SubSubCategoryController;
-use App\Http\Controllers\User\CartPageController;
-use App\Http\Controllers\User\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,18 @@ Route::middleware('auth:admin')->group(function(){
                 Route::get('/delete/{id}' , [SliderController::class , 'deleteSlider'])->name('delete.slider');
                 Route::get('/inactive/{id}' , [SliderController::class , 'inActiveSlider'])->name('inactive.slider');
                 Route::get('/active/{id}' , [SliderController::class , 'activeSlider'])->name('active.slider');
+            });
+
+            // All Admin Coupon Route
+
+            Route::prefix('Coupon')->group(function(){
+                Route::get('/view' , [CouponController::class , 'viewCoupon'])->name('all.coupons');
+                Route::post('/store' , [CouponController::class , 'store'])->name('add.coupon');
+                Route::get('/edit/{id}' , [CouponController::class , 'editCoupon'])->name('edit.coupon');
+                Route::post('/update' , [CouponController::class , 'updateCoupon'])->name('update.coupon');
+                Route::get('/delete/{id}' , [CouponController::class , 'deleteCoupon'])->name('delete.coupon');
+                Route::get('/inactive/{id}' , [CouponController::class , 'inActiveCoupon'])->name('inactive.coupon');
+                Route::get('/active/{id}' , [CouponController::class , 'activeCoupon'])->name('active.coupon');
             });
 
 
