@@ -14,6 +14,7 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\ShippingAreaController;
 use App\Http\Controllers\backend\SubSubCategoryController;
 
 /*
@@ -115,6 +116,29 @@ Route::middleware('auth:admin')->group(function(){
                 Route::get('/active/{id}' , [CouponController::class , 'activeCoupon'])->name('active.coupon');
             });
 
+            // All Admin Shipping Area Route
+
+            Route::prefix('shippingarea')->group(function(){
+                // Shipping Division
+                Route::get('/divison/view' , [ShippingAreaController::class , 'viewDivision'])->name('all.divisions');
+                Route::post('/divison/store' , [ShippingAreaController::class , 'storeDivision'])->name('add.division');
+                Route::get('/divison/edit/{id}' , [ShippingAreaController::class , 'editDivision'])->name('edit.division');
+                Route::post('/divison/update' , [ShippingAreaController::class , 'updateDivision'])->name('update.division');
+                Route::get('/divison/delete/{id}' , [ShippingAreaController::class , 'deleteDivision'])->name('delete.division');
+                // Shipping District
+                Route::get('/District/view' , [ShippingAreaController::class , 'viewDistrict'])->name('all.districts');
+                Route::post('/District/store' , [ShippingAreaController::class , 'storeDistrict'])->name('add.district');
+                Route::get('/District/edit/{id}' , [ShippingAreaController::class , 'editDistrict'])->name('edit.district');
+                Route::post('/District/update' , [ShippingAreaController::class , 'updateDistrict'])->name('update.district');
+                Route::get('/District/delete/{id}' , [ShippingAreaController::class , 'deleteDistrict'])->name('delete.district');
+                // Shipping State
+                Route::get('/state/view' , [ShippingAreaController::class , 'viewStates'])->name('all.states');
+                Route::post('/state/store' , [ShippingAreaController::class , 'storeState'])->name('add.state');
+                Route::get('/state/edit/{id}' , [ShippingAreaController::class , 'editState'])->name('edit.state');
+                Route::post('/state/update' , [ShippingAreaController::class , 'updateState'])->name('update.state');
+                Route::get('/state/delete/{id}' , [ShippingAreaController::class , 'deleteState'])->name('delete.state');
+            });
+            
 
     });
 });
