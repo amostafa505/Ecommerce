@@ -119,24 +119,25 @@ Route::middleware('auth:admin')->group(function(){
             // All Admin Shipping Area Route
 
             Route::prefix('shippingarea')->group(function(){
-                // Shipping Division
-                Route::get('/divison/view' , [ShippingAreaController::class , 'viewDivision'])->name('all.divisions');
-                Route::post('/divison/store' , [ShippingAreaController::class , 'storeDivision'])->name('add.division');
-                Route::get('/divison/edit/{id}' , [ShippingAreaController::class , 'editDivision'])->name('edit.division');
-                Route::post('/divison/update' , [ShippingAreaController::class , 'updateDivision'])->name('update.division');
-                Route::get('/divison/delete/{id}' , [ShippingAreaController::class , 'deleteDivision'])->name('delete.division');
-                // Shipping District
-                Route::get('/District/view' , [ShippingAreaController::class , 'viewDistrict'])->name('all.districts');
-                Route::post('/District/store' , [ShippingAreaController::class , 'storeDistrict'])->name('add.district');
-                Route::get('/District/edit/{id}' , [ShippingAreaController::class , 'editDistrict'])->name('edit.district');
-                Route::post('/District/update' , [ShippingAreaController::class , 'updateDistrict'])->name('update.district');
-                Route::get('/District/delete/{id}' , [ShippingAreaController::class , 'deleteDistrict'])->name('delete.district');
-                // Shipping State
-                Route::get('/state/view' , [ShippingAreaController::class , 'viewStates'])->name('all.states');
-                Route::post('/state/store' , [ShippingAreaController::class , 'storeState'])->name('add.state');
-                Route::get('/state/edit/{id}' , [ShippingAreaController::class , 'editState'])->name('edit.state');
-                Route::post('/state/update' , [ShippingAreaController::class , 'updateState'])->name('update.state');
-                Route::get('/state/delete/{id}' , [ShippingAreaController::class , 'deleteState'])->name('delete.state');
+                // // Shipping Division
+                // Route::get('/divison/view' , [ShippingAreaController::class , 'viewDivision'])->name('all.divisions');
+                // Route::post('/divison/store' , [ShippingAreaController::class , 'storeDivision'])->name('add.division');
+                // Route::get('/divison/edit/{id}' , [ShippingAreaController::class , 'editDivision'])->name('edit.division');
+                // Route::post('/divison/update' , [ShippingAreaController::class , 'updateDivision'])->name('update.division');
+                // Route::get('/divison/delete/{id}' , [ShippingAreaController::class , 'deleteDivision'])->name('delete.division');
+                // Shipping Country
+                Route::get('/Country/view' , [ShippingAreaController::class , 'viewCountry'])->name('all.countries');
+                Route::post('/Country/store' , [ShippingAreaController::class , 'storeCountry'])->name('add.country');
+                Route::get('/Country/edit/{id}' , [ShippingAreaController::class , 'editCountry'])->name('edit.country');
+                Route::post('/Country/update' , [ShippingAreaController::class , 'updateCountry'])->name('update.country');
+                Route::get('/Country/delete/{id}' , [ShippingAreaController::class , 'deleteCountry'])->name('delete.country');
+                // Shipping City
+                Route::get('/city/view' , [ShippingAreaController::class , 'viewCities'])->name('all.cities');
+                Route::post('/city/store' , [ShippingAreaController::class , 'storeCity'])->name('add.city');
+                Route::get('/city/edit/{id}' , [ShippingAreaController::class , 'editCity'])->name('edit.city');
+                Route::post('/city/update' , [ShippingAreaController::class , 'updateCity'])->name('update.city');
+                Route::get('/city/delete/{id}' , [ShippingAreaController::class , 'deleteCity'])->name('delete.city');
+                Route::get('/Country/ajax/{country_id}' ,  [ShippingAreaController::class , 'GetCountry']);
             });
             
 

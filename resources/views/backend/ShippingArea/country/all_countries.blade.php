@@ -9,7 +9,7 @@
 
 			 <div class="box">
 				<div class="box-header with-border">
-				  <h3 class="box-title">All Districts</h3>
+				  <h3 class="box-title">All Countries</h3>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -17,21 +17,19 @@
 					  <table id="example1" class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>District Name</th>
-								<th>Division Name</th>
+								<th>Country Name</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							{{-- {{dd($districts)}} --}}
-              @foreach($districts as $item)
+							{{-- {{dd($countries)}} --}}
+              @foreach($countries as $item)
 							<tr>
                 {{-- {{dd()}} --}}
-								<td>{{$item->district_name}}</td>
-								<td>{{$item->division->division_name}}</td>
+								<td>{{$item->country_name}}</td>
 								<td>
-                  <a href="{{route('edit.district', $item->id)}}" class="btn btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
-                  <a href="{{route('delete.district',$item->id)}}" id="delete" class="btn btn-danger" title="delete"><i class="fa fa-trash"></i></a>
+                  <a href="{{route('edit.country', $item->id)}}" class="btn btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
+                  <a href="{{route('delete.country',$item->id)}}" id="delete" class="btn btn-danger" title="delete"><i class="fa fa-trash"></i></a>
                 </td>
 							</tr>
               @endforeach
@@ -48,25 +46,16 @@
             <div class="col-4">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Add District</h3>
+                        <h3 class="box-title">Add Country</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                <form method="post" action="{{route('add.district')}}">
+                <form method="post" action="{{route('add.country')}}">
                     @csrf
                         <div class="form-group">
-                            <h5>District Name<span class="text-danger">*</span></h5>
+                            <h5>Country Name<span class="text-danger">*</span></h5>
                             <div class="controls">
-                                <input type="text" name="district_name"  class="form-control"> </div>
-                        </div>
-						<div class="form-group">
-                            <h5>Division<span class="text-danger">*</span></h5>
-                            <select class="form-control" name="division_id">
-                                <option disabled selected="" value="">Select Division</option>
-                            @foreach($divisions as $item)
-                                <option value="{{$item->id}}">{{$item->division_name}}</option>
-                            @endforeach
-							</select>
+                                <input type="text" name="country_name"  class="form-control"> </div>
                         </div>
 
                         <div class="text-xs-right">

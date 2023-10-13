@@ -8,14 +8,14 @@
             <div class="col-12">
                 <div class="box">
                     <div class="box-body">
-                <form method="post" action="{{route('update.division')}}" enctype="multipart/form-data">
+                <form method="post" action="{{route('update.country')}}" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" value="{{$division->id}}">
+                    <input type="hidden" name="id" value="{{$country->id}}">
                         <div class="form-group">
-                            <h5>Division Name<span class="text-danger">*</span></h5>
+                            <h5>Country Name<span class="text-danger">*</span></h5>
                             <div class="controls">
-                                <input type="text" name="division_name" value="{{$division->division_name}}"  class="form-control"> </div>
-                                @error('division_name')
+                                <input type="text" name="country_name" value="{{$country->country_name}}"  class="form-control"> </div>
+                                @error('country_name')
                                 <span class="invalid-feedback">
                                         <strong>{{$message}}</strong>
                                 </span>

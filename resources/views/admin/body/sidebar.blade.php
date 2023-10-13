@@ -107,9 +107,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{{($route == 'all.divisions')? 'active' : ''}}"><a href="{{route('all.divisions')}}"><i class="ti-more"></i>All Divisions</a></li>
-            <li class="{{($route == 'all.districts')? 'active' : ''}}"><a href="{{route('all.districts')}}"><i class="ti-more"></i>All Districts</a></li>
-            <li class="{{($route == 'all.states')? 'active' : ''}}"><a href="{{route('all.states')}}"><i class="ti-more"></i>All States</a></li>
+            {{-- <li class="{{($route == 'all.divisions')? 'active' : ''}}"><a href="{{route('all.divisions')}}"><i class="ti-more"></i>All Divisions</a></li> --}}
+            <li class="{{($route == 'all.countries')? 'active' : ''}}"><a href="{{route('all.countries')}}"><i class="ti-more"></i>All Countries</a></li>
+            <li class="{{($route == 'all.cities')? 'active' : ''}}"><a href="{{route('all.cities')}}"><i class="ti-more"></i>All Cities</a></li>
           </ul>
         </li>
 
