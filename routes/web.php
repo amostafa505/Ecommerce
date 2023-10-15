@@ -139,7 +139,7 @@ Route::middleware('auth:admin')->group(function(){
                 Route::get('/city/delete/{id}' , [ShippingAreaController::class , 'deleteCity'])->name('delete.city');
                 Route::get('/Country/ajax/{country_id}' ,  [ShippingAreaController::class , 'GetCountry']);
             });
-            
+
 
     });
 });
@@ -149,9 +149,12 @@ Route::middleware('admin:admin')->group(function(){
     Route::post('admin/login' , [AdminController::class , 'store'])->name('admin.login');
 
 });
+///////////////////////End Backend Section///////////////////////
 
 
-// All FrontEnd Routes
+
+
+// Start All FrontEnd Routes
 Route::get('/' , [indexController::class , 'index']);
 Route::get('/user/logout' , [indexController::class , 'userLogout'])->name('user.logout');
 Route::get('/edit/profile' , [indexController::class , 'editProfile'])->name('edit.profile');
@@ -198,7 +201,8 @@ Route::get('/product/PWsubsubcategory/{id}/{slug}', [indexController::class , 's
 Route::get('/language/english' , [languageController::class , 'englishLanguage'])->name('english.language');
 Route::get('/language/arabic' , [languageController::class , 'arabicLanguage'])->name('arabic.language');
 
-
+//Apply Coupon
+Route::POST('/applycoupon' , [cartController::class , 'applyCoupon']);
 
 
 
@@ -223,5 +227,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     Route::get('/cart-Decrement/{rowId}', [CartPageController::class, 'CartDecrement']);
 });
+
+/////////////////End FrontEnd Section
 
 

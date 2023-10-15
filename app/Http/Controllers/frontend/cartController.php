@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\frontend;
 
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -18,11 +19,11 @@ class cartController extends Controller
 
     	if ($product->discount_price == NULL) {
     		Cart::add([
-    			'id' => $id, 
-    			'name' => $request->product_name, 
-    			'qty' => $request->quantity, 
+    			'id' => $id,
+    			'name' => $request->product_name,
+    			'qty' => $request->quantity,
     			'price' => $product->selling_price,
-    			'weight' => 1, 
+    			'weight' => 1,
     			'options' => [
     				'image' => $product->product_thambnail,
     				'color' => $request->color,
@@ -35,11 +36,11 @@ class cartController extends Controller
     	}else{
 
     		Cart::add([
-    			'id' => $id, 
-    			'name' => $request->product_name, 
-    			'qty' => $request->quantity, 
+    			'id' => $id,
+    			'name' => $request->product_name,
+    			'qty' => $request->quantity,
     			'price' => $product->discount_price,
-    			'weight' => 1, 
+    			'weight' => 1,
     			'options' => [
     				'image' => $product->product_thambnail,
     				'color' => $request->color,
@@ -55,7 +56,7 @@ class cartController extends Controller
 		$carts = Cart::content();
 		$cartQty = Cart::count();
 		$cartTotal = Cart::subtotal($decimals = 0);
-		
+
 		return response()->json(array(
 			'carts' => $carts,
 			'cartQty' => $cartQty,
@@ -66,7 +67,7 @@ class cartController extends Controller
 
 	public function removeMiniCart($id){
 		Cart::remove($id);
-		
+
 		return response()->json(['success' => 'Product Removed From Cart']);
 	}//End Add to removeMiniCart Function
 
@@ -86,5 +87,14 @@ class cartController extends Controller
 		}else{
 			return response()->json(['error' => 'Please Make Sure to login First']);
 		}
-	}//end addtowishlist 
+	}//end addtowishlist
+
+    public function applyCoupon(Request $request){
+        $coupon = Coupon::where('coupon_name', $request->coupon_name)->where('status' , 1)->get();
+        if($coupon){
+
+        }else{
+            return response()->json(['error' , 'Invalid Coupon'])
+        }
+    }//end applyCoupon function
 }

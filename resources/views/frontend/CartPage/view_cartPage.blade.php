@@ -41,11 +41,13 @@
 				</tr>
 			</tfoot>
 			<tbody id="myCart">
-				
+
 			</tbody><!-- /tbody -->
 		</table><!-- /table -->
 	</div>
-</div><!-- /.shopping-cart-table -->				
+</div><!-- /.shopping-cart-table -->
+<div class="col-md-4 col-sm-12 estimate-ship-tax">
+</div>
 {{-- <div class="col-md-4 col-sm-12 estimate-ship-tax">
 	<table class="table">
 		<thead>
@@ -92,7 +94,7 @@
 				</tr>
 		</tbody>
 	</table>
-</div><!-- /.estimate-ship-tax -->
+</div><!-- /.estimate-ship-tax --> --}}
 
 <div class="col-md-4 col-sm-12 estimate-ship-tax">
 	<table class="table">
@@ -108,10 +110,10 @@
 				<tr>
 					<td>
 						<div class="form-group">
-							<input type="text" class="form-control unicase-form-control text-input" placeholder="You Coupon..">
+							<input type="text" class="form-control unicase-form-control text-input" id="coupon_name" placeholder="Your Coupon..">
 						</div>
 						<div class="clearfix pull-right">
-							<button type="submit" class="btn-upper btn btn-primary">APPLY COUPON</button>
+							<button type="submit" class="btn-upper btn btn-primary" onclick="applycoupon()">APPLY COUPON</button>
 						</div>
 					</td>
 				</tr>
@@ -144,7 +146,7 @@
 				</tr>
 		</tbody><!-- /tbody -->
 	</table><!-- /table -->
-</div><!-- /.cart-shopping-total -->			 --}}
+</div><!-- /.cart-shopping-total -->
 
 
 

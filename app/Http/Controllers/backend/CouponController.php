@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Coupon;
+use toastr;
 use Carbon\Carbon;
+use App\Models\Coupon;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CouponController extends Controller
 {
@@ -79,12 +80,13 @@ class CouponController extends Controller
         foreach($coupons as $coupon){
             //check every coupon if its status is active to avoid checking the already inactive coupons
             if($coupon->status == 1){
-                //now checking if the coupon on its valid time or not 
-                if($coupon->coupon_validity_start <= Carbon::now()->format('Y-m-d')&& $coupon->coupon_validity_end >= Carbon::now()){
+                //now checking if the coupon on its valid time or not
+                if($coupon->coupon_validity_start >= Carbon::now()->format('Y-m-d') && $coupon->coupon_validity_end >= Carbon::now()){
                     return true;
                 }else{
                     //now change all the coupons at its time is not valid
                     $coupon->update(['status' => 0]);
+                    toastr()->error('Done update Coupon Status Please Check the Dates');
                     return true;
                 }
             }else{
