@@ -29,7 +29,7 @@ class CouponCheck extends Command
     {
         $coupons = Coupon::where('status' , 1)->get();
         foreach($coupons as $coupon){
-        if($coupon->coupon_validity_start >= Carbon::now()->format('Y-m-d') && $coupon->coupon_validity_end <= Carbon::now()){
+        if($coupon->coupon_validity_start <= Carbon::now()->format('Y-m-d')&& $coupon->coupon_validity_end >= Carbon::now()){
             return true;
         }else{
             //now change all the coupons at its time is not valid

@@ -81,7 +81,7 @@ class CouponController extends Controller
             //check every coupon if its status is active to avoid checking the already inactive coupons
             if($coupon->status == 1){
                 //now checking if the coupon on its valid time or not
-                if($coupon->coupon_validity_start >= Carbon::now()->format('Y-m-d') && $coupon->coupon_validity_end >= Carbon::now()){
+                if($coupon->coupon_validity_start <= Carbon::now()->format('Y-m-d')&& $coupon->coupon_validity_end >= Carbon::now()){
                     return true;
                 }else{
                     //now change all the coupons at its time is not valid

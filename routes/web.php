@@ -202,7 +202,13 @@ Route::get('/language/english' , [languageController::class , 'englishLanguage']
 Route::get('/language/arabic' , [languageController::class , 'arabicLanguage'])->name('arabic.language');
 
 //Apply Coupon
-Route::POST('/applycoupon' , [cartController::class , 'applyCoupon']);
+Route::POST('/coupon-apply' , [cartController::class , 'applyCoupon']);
+
+//coupon Calculation
+Route::Get('/coupon-calculation' , [cartController::class , 'couponCalculation']);
+
+//coupon Remove
+Route::Get('/remove-coupon' , [cartController::class , 'couponRemove']);
 
 
 

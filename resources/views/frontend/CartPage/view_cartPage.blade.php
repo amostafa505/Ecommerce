@@ -97,8 +97,12 @@
 </div><!-- /.estimate-ship-tax --> --}}
 
 <div class="col-md-4 col-sm-12 estimate-ship-tax">
-	<table class="table">
-		<thead>
+	@if(Session::has('coupon'))
+
+	@else
+
+	<table class="table" id="couponApply">
+		<thead >
 			<tr>
 				<th>
 					<span class="estimate-title">Discount Code</span>
@@ -110,7 +114,7 @@
 				<tr>
 					<td>
 						<div class="form-group">
-							<input type="text" class="form-control unicase-form-control text-input" id="coupon_name" placeholder="Your Coupon..">
+							<input type="text" class="form-control unicase-form-control text-input" id="coupon_name" name="coupon_name" placeholder="Your Coupon..">
 						</div>
 						<div class="clearfix pull-right">
 							<button type="submit" class="btn-upper btn btn-primary" onclick="applycoupon()">APPLY COUPON</button>
@@ -119,21 +123,12 @@
 				</tr>
 		</tbody><!-- /tbody -->
 	</table><!-- /table -->
+	@endif
 </div><!-- /.estimate-ship-tax -->
-
 <div class="col-md-4 col-sm-12 cart-shopping-total">
 	<table class="table">
-		<thead>
-			<tr>
-				<th>
-					<div class="cart-sub-total">
-						Subtotal<span class="inner-left-md">$600.00</span>
-					</div>
-					<div class="cart-grand-total">
-						Grand Total<span class="inner-left-md">$600.00</span>
-					</div>
-				</th>
-			</tr>
+		<thead id="couponCalField">
+			
 		</thead><!-- /thead -->
 		<tbody>
 				<tr>

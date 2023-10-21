@@ -42,9 +42,10 @@
                   @endif
               </td>
 								<td>
+                  {{-- {{dd()}} --}}
                   <a href="{{route('edit.coupon', $item->id)}}" class="btn btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
                   <a href="{{route('delete.coupon',$item->id)}}" id="delete" class="btn btn-danger" title="delete"><i class="fa fa-trash"></i></a>
-                  @if ($item->status == 1 && $item->coupon_validity_start >= Carbon\Carbon::now()->format('Y-m-d')&& $item->coupon_validity_end <= Carbon\Carbon::now())
+                  @if ($item->status == 1 && $item->coupon_validity_start <= Carbon\Carbon::now()->format('Y-m-d')&& $item->coupon_validity_end >= Carbon\Carbon::now())
                       <a href="{{route('inactive.coupon', $item->id)}}" class="btn btn-danger" title="Inactive Now"><i class="fa fa-arrow-down"></i></a>
                   @else
                       <a href="{{route('active.coupon', $item->id)}}" class="btn btn-success" title="Active Now"><i class="fa fa-arrow-up"></i></a>

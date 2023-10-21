@@ -8,12 +8,17 @@ use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class cartController extends Controller
 {
 
     public function addToCart(Request $request, $id){
+
+		if (Session::has('coupon')) {
+			Session::forget('coupon');
+		 }
 
     	$product = Product::findOrFail($id);
 
@@ -90,11 +95,43 @@ class cartController extends Controller
 	}//end addtowishlist
 
     public function applyCoupon(Request $request){
-        $coupon = Coupon::where('coupon_name', $request->coupon_name)->where('status' , 1)->get();
+		$coupon = Coupon::where('coupon_name', $request->coupon_name)->where('status' , 1)->first();
         if($coupon){
+			$total = (int)str_replace(',','',Cart::subtotal($decimals = 0));
+			// dd($total * $coupon->coupon_discount/100 );
 
+			Session::put('coupon',[
+			'coupon_name' => $coupon->coupon_name,
+			'coupon_discount' => $coupon->coupon_discount,
+			'discount_amount' => round($total * $coupon->coupon_discount/100),
+			'total_amount' => round($total - $total * $coupon->coupon_discount/100)
+			]);
+			return response()->json(array(
+				'success' => 'Coupon Applied Successfully'
+            ));
         }else{
-            return response()->json(['error' , 'Invalid Coupon'])
+            return response()->json(['error' , 'Invalid Coupon']);
         }
     }//end applyCoupon function
+
+	public function couponCalculation(){
+		if(Session::has('coupon')){
+			return response()->json(array(
+				'subtotal' => Cart::subtotal($decimals = 0),
+				'coupon_name' => Session::get('coupon')['coupon_name'],
+				'coupon_discount' => Session::get('coupon')['coupon_discount'],
+				'discount_amount' => Session::get('coupon')['discount_amount'],
+				'total_amount' => Session::get('coupon')['total_amount'],
+			));
+		}else{
+			return response()->json(array(
+				'total'=> Cart::subtotal($decimals = 0),
+			));
+		}
+	}//end couponCalculation function
+
+	public function couponRemove(){
+		Session::forget('coupon');
+		return response()->json(['error' => 'Coupon Removed Successfully']);
+	}//end coupon Remove function
 }
