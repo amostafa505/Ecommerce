@@ -526,8 +526,7 @@ function cartDecrement(rowId){
         data: {coupon_name:coupon_name},
         url: "{{ url('/coupon-apply') }}",
         success:function(data){
-              couponCalculation();
-              $('#couponApply').hide();
+
              // Start Message 
                 const Toast = Swal.mixin({
                       toast: true,
@@ -537,6 +536,8 @@ function cartDecrement(rowId){
                       timer: 3000
                     })
                 if ($.isEmptyObject(data.error)) {
+                  couponCalculation();
+                  $('#couponApply').hide();
                     Toast.fire({
                         type: 'success',
                         icon: 'success',

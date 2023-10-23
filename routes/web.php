@@ -16,6 +16,7 @@ use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\ShippingAreaController;
 use App\Http\Controllers\backend\SubSubCategoryController;
+use App\Http\Controllers\User\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -210,7 +211,8 @@ Route::Get('/coupon-calculation' , [cartController::class , 'couponCalculation']
 //coupon Remove
 Route::Get('/remove-coupon' , [cartController::class , 'couponRemove']);
 
-
+//Checkout Section
+Route::Get('/checkout-view' , [CheckoutController::class , 'checkoutView'])->name('checkout');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', [indexController::class , 'userProfile'])->name('dashboard');

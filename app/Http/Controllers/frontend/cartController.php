@@ -96,7 +96,7 @@ class cartController extends Controller
 
     public function applyCoupon(Request $request){
 		$coupon = Coupon::where('coupon_name', $request->coupon_name)->where('status' , 1)->first();
-        if($coupon){
+        if($coupon && $coupon->status == 1){
 			$total = (int)str_replace(',','',Cart::subtotal($decimals = 0));
 			// dd($total * $coupon->coupon_discount/100 );
 
@@ -110,7 +110,7 @@ class cartController extends Controller
 				'success' => 'Coupon Applied Successfully'
             ));
         }else{
-            return response()->json(['error' , 'Invalid Coupon']);
+            return response()->json(['error' => 'Invalid Coupon']);
         }
     }//end applyCoupon function
 
