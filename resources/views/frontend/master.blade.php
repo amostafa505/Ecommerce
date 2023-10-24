@@ -521,6 +521,9 @@ function cartDecrement(rowId){
   function applycoupon(){
     var coupon_name = $('#coupon_name').val();
     $.ajax({
+      headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
         type: 'POST',
         dataType: 'json',
         data: {coupon_name:coupon_name},
