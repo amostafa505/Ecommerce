@@ -1,6 +1,6 @@
 @extends('admin.admin_master')
 @section('admin')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 
 <div class="container-full">
 		<!-- Main content -->
@@ -58,7 +58,8 @@
                         <div class="form-group">
                             <h5>City Name<span class="text-danger">*</span></h5>
                             <div class="controls">
-                                <input type="text" name="city_name"  class="form-control"> </div>
+                                <input type="text" name="city_name"  class="form-control">
+                            </div>
                         </div>
 						<div class="form-group">
                             <h5>Country<span class="text-danger">*</span></h5>
@@ -91,15 +92,14 @@
 {{-- <script type="text/javascript">
   $(document).ready(function(){
       $('select[name="country_id"]').on('change',function(){
-          var district_id = $(this).val();
-          if(district_id){
+          var country_id = $(this).val();
+          if(country_id){
               $.ajax({
-                  url:"{{url('/Country/ajax)}}/"+district_id,
+                  url:"{{url('/Country/ajax)}}/"+country_id,
                   type:"Get",
                   dataType:"json",
                   success:function(data){
-                      var d=$('select[name="subcategory_id"]').empty();
-                      var d=$('select[name="subsubcategory_id"]').html('');
+                    //   var d=$('select[name="subcategory_id"]').empty();
                       $.each(data , function(key , value){
                           $('select[name="subcategory_id"]').append('<option value="'+value.id +'">' + value.subcategory_name_en+'</option>');
                       });

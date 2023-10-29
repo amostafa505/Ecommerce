@@ -112,7 +112,7 @@
     {{-- End Product Add to Cart Modal --}}
 
     <!-- JavaScripts placed at the end of the document so the pages load faster -->
-    <script src="{{ asset('frontend/assets/js/jquery-1.11.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/assets/js/jquery-1.11.1.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/bootstrap-hover-dropdown.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
@@ -530,11 +530,11 @@ function cartDecrement(rowId){
         url: "{{ url('/coupon-apply') }}",
         success:function(data){
 
-             // Start Message 
+             // Start Message
                 const Toast = Swal.mixin({
                       toast: true,
                       position: 'top-end',
-                      
+
                       showConfirmButton: false,
                       timer: 3000
                     })
@@ -556,12 +556,12 @@ function cartDecrement(rowId){
 
                 }
 
-                // End Message 
+                // End Message
 
         }
 
     })
-  }  
+  }
   function couponCalculation(){
     $.ajax({
         type: 'GET',
@@ -581,7 +581,7 @@ function cartDecrement(rowId){
 				</th>
 			</tr>`
             );
-           
+
           }else{
             $('#couponCalField').html(
               `<tr>
@@ -617,11 +617,11 @@ function cartDecrement(rowId){
         $('#couponApply').show();
         $('#coupon_name').val('');
         couponCalculation();
-          // Start Message 
+          // Start Message
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
-            
+
             showConfirmButton: false,
             timer: 3000
           })
@@ -641,7 +641,7 @@ function cartDecrement(rowId){
 
       }
 
-      // End Message 
+      // End Message
       }
     });
   }

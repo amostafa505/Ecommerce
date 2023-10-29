@@ -8,7 +8,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{route('wishlist')}}"><i class="icon fa fa-heart"></i>Wishlist</a></li>
                         <li><a href="{{route('Mycart')}}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        <li><a href="{{route('checkout')}}"><i class="icon fa fa-check"></i>Checkout</a></li>
                         @auth
                             <li><a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>My Profile</a></li>
                         @else
@@ -104,7 +104,7 @@
                             <div class="items-cart-inner">
                                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
                                 <div class="basket-item-count"><span class="count" id="cartQty"></span></div>
-                                <div class="total-price-basket"> <span class="lbl">cart -</span> 
+                                <div class="total-price-basket"> <span class="lbl">cart -</span>
                                     <span class="total-price"> <span class="sign">$</span>
                                     <span class="value" id="cartTotal"> </span> </span> </div>
                             </div>
@@ -116,7 +116,7 @@
                                     <div class="pull-right"> <span class="text">Sub Total :</span><span class="sign">$</span><span
                                             class='price' id="cartTotal"></span> </div>
                                     <div class="clearfix"></div>
-                                    <a href="checkout.html"
+                                    <a href="{{route('checkout')}}"
                                         class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
                             </li>
                         </ul>
@@ -171,7 +171,7 @@
                                                     @endphp
                                                     @foreach($subcategories as $subcategory)
                                                     <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                        
+
                                                         <a href="{{route('subCategory.Products',[$subcategory->id , $subcategory->subcategory_slug_en])}}" >
                                                              <h2 class="title">@if(session()->get('language') == 'arabic') {{$subcategory->subcategory_name_ar}} @else {{$subcategory->subcategory_name_en}} @endif</h2>
                                                         </a>
@@ -187,12 +187,12 @@
                                                                 </a>
                                                             </li>
                                                         @endforeach
-                                                        
+
                                                     </ul>
                                                     </div>
 
                                                     @endforeach
-                                                    
+
                                                 <!-- /.col -->
                                                 <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
                                                     <img class="img-responsive"

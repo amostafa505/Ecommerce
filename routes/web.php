@@ -17,6 +17,7 @@ use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\ShippingAreaController;
 use App\Http\Controllers\backend\SubSubCategoryController;
 use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\StripeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,7 +139,7 @@ Route::middleware('auth:admin')->group(function(){
                 Route::get('/city/edit/{id}' , [ShippingAreaController::class , 'editCity'])->name('edit.city');
                 Route::post('/city/update' , [ShippingAreaController::class , 'updateCity'])->name('update.city');
                 Route::get('/city/delete/{id}' , [ShippingAreaController::class , 'deleteCity'])->name('delete.city');
-                Route::get('/Country/ajax/{country_id}' ,  [ShippingAreaController::class , 'GetCountry']);
+
             });
 
 
@@ -181,12 +182,6 @@ Route::get('/product/removeminicart/{rowid}' , [cartController::class , 'removeM
 //Product Tags View
 Route::get('/product/tag/{slug}' , [indexController::class , 'productTags'])->name('product.tags');
 
-//Add To Wishlist
-Route::POST('/addToWishList/{id}' , [cartController::class , 'addToWishlist'])->name('addToWishilist');
-
-//View Wishlist
-Route::get('/view/wishlist/' , [WishlistController::class , 'viewWishlist'])->name('wishlist');
-
 //Remove from Wishlist
 Route::get('/wishlist/remove/{id}' , [WishlistController::class , 'deleteWishlist'])->name('deleteWishlist');
 
@@ -197,6 +192,12 @@ Route::get('/product/productWithsubCateogry/{id}/{slug}', [indexController::clas
 Route::get('/product/PWsubsubcategory/{id}/{slug}', [indexController::class , 'subSubCategoryProducts'])->name('subSubCategory.Products');
 
 
+//Getting Cities For Checkout Page
+Route::get('/City/ajax/{country_id}' ,  [ShippingAreaController::class , 'GetCity']);
+
+//Checkout Routes
+
+Route::post('checkout/store',[CheckoutController::class,'checkoutStore'])->name('checkout.Store');
 
 //Main Page View With spacific Language
 Route::get('/language/english' , [languageController::class , 'englishLanguage'])->name('english.language');
@@ -234,6 +235,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('/cart-increment/{rowId}', [CartPageController::class, 'CartIncrement']);
 
     Route::get('/cart-Decrement/{rowId}', [CartPageController::class, 'CartDecrement']);
+
+    //Stripe Order Store
+    Route::Post('/StripePayment' , [StripeController::class , 'StripeOrder'])->name('Stripe-Order');
 });
 
 /////////////////End FrontEnd Section
