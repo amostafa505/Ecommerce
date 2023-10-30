@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Models\User;
+use App\Models\Brand;
+use App\Models\Order;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\MultiImg;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
-use App\Models\MultiImg;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -161,5 +163,17 @@ class indexController extends Controller
             'color' => $productColor,
             'size' => $productSize,
         ));
-    }
+    }//end productModalAjax
+
+    public function userOrders(){
+        $orders = Order::where('user_id' , Auth::user()->id)->orderBy('id' , 'DESC')->get();
+        return view('frontend.profile.userOrders' , compact('orders'));
+    }//end function userOrders
+
+    public function userOrderDetails($order_id){
+        $order = Order::with('country', 'city')->where('id' , $order_id)->where('id',$order_id)->first();
+        $order_items = OrderItem::with('product')->where('order_id' , $order_id)->orderBy('id' , 'DESC')->get();
+        return view('frontend.profile.userOrderDetails' , compact('order', 'order_items'));
+    }//end function userOrders
+
 }

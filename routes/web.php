@@ -16,6 +16,7 @@ use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\ShippingAreaController;
 use App\Http\Controllers\backend\SubSubCategoryController;
+use App\Http\Controllers\User\CashController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\StripeController;
 
@@ -121,12 +122,6 @@ Route::middleware('auth:admin')->group(function(){
             // All Admin Shipping Area Route
 
             Route::prefix('shippingarea')->group(function(){
-                // // Shipping Division
-                // Route::get('/divison/view' , [ShippingAreaController::class , 'viewDivision'])->name('all.divisions');
-                // Route::post('/divison/store' , [ShippingAreaController::class , 'storeDivision'])->name('add.division');
-                // Route::get('/divison/edit/{id}' , [ShippingAreaController::class , 'editDivision'])->name('edit.division');
-                // Route::post('/divison/update' , [ShippingAreaController::class , 'updateDivision'])->name('update.division');
-                // Route::get('/divison/delete/{id}' , [ShippingAreaController::class , 'deleteDivision'])->name('delete.division');
                 // Shipping Country
                 Route::get('/Country/view' , [ShippingAreaController::class , 'viewCountry'])->name('all.countries');
                 Route::post('/Country/store' , [ShippingAreaController::class , 'storeCountry'])->name('add.country');
@@ -158,11 +153,6 @@ Route::middleware('admin:admin')->group(function(){
 
 // Start All FrontEnd Routes
 Route::get('/' , [indexController::class , 'index']);
-Route::get('/user/logout' , [indexController::class , 'userLogout'])->name('user.logout');
-Route::get('/edit/profile' , [indexController::class , 'editProfile'])->name('edit.profile');
-Route::Post('/update/profile' , [indexController::class , 'updateProfile'])->name('update.profile');
-Route::get('/user/edit/password' , [indexController::class , 'userEditPassword'])->name('user.edit.password');
-Route::post('/user/update/password' , [indexController::class , 'userUpdatePassword'])->name('user.update.password');
 
 // Product View
 Route::get('/product/details/{id}/{slug}' , [indexController::class , 'productDetails'])->name('product.details');
@@ -238,6 +228,16 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     //Stripe Order Store
     Route::Post('/StripePayment' , [StripeController::class , 'StripeOrder'])->name('Stripe-Order');
+    //Cash On Delivery Order Store
+    Route::Post('/CashPayment' , [CashController::class , 'cashOrder'])->name('Cash-Order');
+
+    Route::get('/user/logout' , [indexController::class , 'userLogout'])->name('user.logout');
+    Route::get('/edit/profile' , [indexController::class , 'editProfile'])->name('edit.profile');
+    Route::Post('/update/profile' , [indexController::class , 'updateProfile'])->name('update.profile');
+    Route::get('/user/edit/password' , [indexController::class , 'userEditPassword'])->name('user.edit.password');
+    Route::post('/user/update/password' , [indexController::class , 'userUpdatePassword'])->name('user.update.password');
+    Route::get('/user/orders' , [indexController::class , 'userOrders'])->name('user.orders');
+    Route::get('/user/order/details/{order_id}' , [indexController::class , 'userOrderDetails'])->name('user.order.details');
 });
 
 /////////////////End FrontEnd Section

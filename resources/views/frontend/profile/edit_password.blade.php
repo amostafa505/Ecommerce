@@ -5,15 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <br>
-                    <img src="{{!empty($user->profile_photo_path) ? url('uploads/user_images/'. $user->profile_photo_path):url('uploads/no_image.jpg')}}" alt="" class="card-img-top" style="height: 100px; width:100px; border-radius:50%">
-                    <br><br>
-                    <ul class="list-group list-group-flush">
-                        <a href="/" class="btn btn-primary btn-sm btn-block">Home</a>
-                        <a href="#" class="btn btn-primary btn-sm btn-block">Profile Update</a>
-                        <a href="{{route('user.edit.password')}}" class="btn btn-primary btn-sm btn-block">Change Password</a>
-                        <a href="{{ route('user.logout') }}" class="btn btn-danger btn-sm btn-block">logout</a>
-                    </ul>
+                    @include('frontend.commonparts.userProfile-Sidebar')
                 </div>
                 <div class="col-md-2"></div>
                 <div class="col-md-6">

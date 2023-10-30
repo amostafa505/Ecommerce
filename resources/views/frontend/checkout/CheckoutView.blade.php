@@ -52,7 +52,7 @@
                                                             <span>*</span></label>
                                                         <input type="text" name="shipping_name"
                                                             class="form-control unicase-form-control text-input"
-                                                            id="exampleInputEmail1" placeholder="Full Name"
+                                                            placeholder="Full Name"
                                                             value="{{ Auth::user()->name }}" required="">
                                                         @error('shipping_name')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -65,7 +65,7 @@
                                                             <span>*</span></label>
                                                         <input type="email" name="shipping_email"
                                                             class="form-control unicase-form-control text-input"
-                                                            id="exampleInputEmail1" placeholder="Email"
+                                                           placeholder="Email"
                                                             value="{{ Auth::user()->email }}" required="">
                                                         @error('shipping_email')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -78,7 +78,7 @@
                                                             <span>*</span></label>
                                                         <input type="number" name="shipping_phone"
                                                             class="form-control unicase-form-control text-input"
-                                                            id="exampleInputEmail1" placeholder="Phone"
+                                                             placeholder="Phone"
                                                             value="{{ Auth::user()->phone }}" required="">
                                                         @error('shipping_phone')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -91,7 +91,7 @@
                                                             <span>*</span></label>
                                                         <input type="text" name="postal_code"
                                                             class="form-control unicase-form-control text-input"
-                                                            id="exampleInputEmail1" placeholder="Post Code" required="">
+                                                            placeholder="Post Code" required="">
                                                         @error('post_code')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
@@ -258,7 +258,7 @@
                                         <div class="col-md-4">
                                             <label for="">Cash</label>
                                             <input type="radio" name="payment_method" value="cash">
-                                            <img src="{{ asset('frontend/assets/images/payments/2.png') }}">
+                                            <img src="{{ asset('frontend/assets/images/payments/6.png') }}">
                                         </div> <!-- end col md 4 -->
 
 
