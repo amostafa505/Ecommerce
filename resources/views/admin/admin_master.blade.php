@@ -74,7 +74,10 @@
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> --}}
 
     {{-- Toastr Link --}}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>.
+    <script src="{{asset('backend/js/sweetalert2.all.js')}}"></script>
+    <script src="{{asset('backend/js/sweetalert.js')}}"></script>
+
     <script>
         @if(Session::has('message'))
         var type = "{{ Session::get('alert-type','info') }}"
@@ -97,34 +100,7 @@
         }
         @endif
        </script>
-    {{-- Sweet Alert --}}
-    <script src="{{asset('backend/js/sweetalert2.all.js')}}"></script>
-    <script type="text/javascript">
-        $(function(){
-            $(document).on('click', '#delete' , function(e){
-                e.preventDefault();
-                var link = $(this).attr("href");
-                Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = link
-                    Swal.fire(
-                    'Deleted!',
-                    'Your Action has been deleted.',
-                    'success'
-                    )
-                }
-                })
-            })
-        })
-    </script>
+
 
 </body>
 </html>

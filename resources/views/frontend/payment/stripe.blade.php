@@ -132,7 +132,6 @@
                                     <input type="hidden" name="name" value="{{ $Checkout['shipping_name'] }}">
                                     <input type="hidden" name="email" value="{{ $Checkout['shipping_email'] }}">
                                     <input type="hidden" name="phone" value="{{ $Checkout['shipping_phone'] }}">
-                                    <input type="hidden" name="phone" value="{{ $Checkout['shipping_address'] }}">
                                     <input type="hidden" name="postal_code" value="{{ $Checkout['postal_code'] }}">
                                     <input type="hidden" name="shipping_address" value="{{ $Checkout['shipping_address'] }}">
                                     <input type="hidden" name="country_id" value="{{ $Checkout['country_id'] }}">

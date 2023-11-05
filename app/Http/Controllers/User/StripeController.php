@@ -21,7 +21,7 @@ class StripeController extends Controller
         if(Session::has('coupon')){
             $total_amount = (int)Session::get('coupon')['total_amount'];
         }else{
-            $total_amount = (int)Cart::subtotal($decimals = 0);
+            $total_amount = (int)str_replace(',','',Cart::subtotal($decimals = 0));
         }
         // Set your secret key. Remember to switch to your live secret key in production.
         // See your keys here: https://dashboard.stripe.com/apikeys
@@ -37,7 +37,6 @@ class StripeController extends Controller
         'source' => $token,
         'metadata' => ['order_id' => uniqid()],
         ]);
-// dd($charge);
         $order_id = Order::insertGetId([
             'user_id' => Auth::id(),
             'country_id' => $request->country_id,

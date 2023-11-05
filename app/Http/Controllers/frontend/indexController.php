@@ -9,11 +9,13 @@ use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\MultiImg;
+use Barryvdh\DomPDF\PDF;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+// use PDF;
 
 class indexController extends Controller
 {
@@ -175,5 +177,18 @@ class indexController extends Controller
         $order_items = OrderItem::with('product')->where('order_id' , $order_id)->orderBy('id' , 'DESC')->get();
         return view('frontend.profile.userOrderDetails' , compact('order', 'order_items'));
     }//end function userOrders
+
+    public function userOrderDownload($order_id){
+        $order = Order::with('country','city','user')->where('id',$order_id)->where('user_id',Auth::id())->first();
+    	$orderItem = OrderItem::with('product')->where('order_id',$order_id)->orderBy('id','DESC')->get();
+    	// return view('frontend.profile.order_invoice',compact('order','orderItem'));
+        // dd($orderItem);
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('frontend.profile.order_invoice' , compact('order','orderItem'))->setPaper('a4')->setOptions([
+            'tempDir' => public_path(),
+            'chroot' => public_path(),
+        ]);
+        return $pdf->download('invoice.pdf');
+    }//end function userOrderDownload
 
 }

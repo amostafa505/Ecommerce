@@ -107,26 +107,30 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            {{-- <li class="{{($route == 'all.divisions')? 'active' : ''}}"><a href="{{route('all.divisions')}}"><i class="ti-more"></i>All Divisions</a></li> --}}
             <li class="{{($route == 'all.countries')? 'active' : ''}}"><a href="{{route('all.countries')}}"><i class="ti-more"></i>All Countries</a></li>
             <li class="{{($route == 'all.cities')? 'active' : ''}}"><a href="{{route('all.cities')}}"><i class="ti-more"></i>All Cities</a></li>
           </ul>
         </li>
 
-		<li class="treeview">
-          <a href="#">
-            <i data-feather="credit-card"></i>
-            <span>Cards</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-			<li><a href="card_advanced.html"><i class="ti-more"></i>Advanced Cards</a></li>
-			<li><a href="card_basic.html"><i class="ti-more"></i>Basic Cards</a></li>
-			<li><a href="card_color.html"><i class="ti-more"></i>Cards Color</a></li>
-		  </ul>
-        </li>
+        <li class="treeview  {{($prefix == '/Orders')?'active':''}}">
+            <a href="#">
+              <i data-feather="grid"></i>
+              <span>Orders</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{($route == 'pending.orders')? 'active' : ''}}"><a href="{{route('pending.orders')}}"><i class="ti-more"></i>All Pending Orders</a></li>
+              <li class="{{($route == 'confirmed.orders')? 'active' : ''}}"><a href="{{route('confirmed.orders')}}"><i class="ti-more"></i>All Confirmed Orders</a></li>
+              <li class="{{($route == 'processing.orders')? 'active' : ''}}"><a href="{{route('processing.orders')}}"><i class="ti-more"></i>All Processing Orders</a></li>
+              <li class="{{($route == 'picked.orders')? 'active' : ''}}"><a href="{{route('picked.orders')}}"><i class="ti-more"></i>All Picked Orders</a></li>
+              <li class="{{($route == 'shipped.orders')? 'active' : ''}}"><a href="{{route('shipped.orders')}}"><i class="ti-more"></i>All Shipped Orders</a></li>
+              <li class="{{($route == 'delivered.orders')? 'active' : ''}}"><a href="{{route('delivered.orders')}}"><i class="ti-more"></i>All Delivered Orders</a></li>
+              <li class="{{($route == 'canceled.orders')? 'active' : ''}}"><a href="{{route('canceled.orders')}}"><i class="ti-more"></i>All Canceled Orders</a></li>
+            </ul>
+          </li>
+
 
       </ul>
     </section>

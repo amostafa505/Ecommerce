@@ -33,7 +33,7 @@
                                  <td><p class="in-stock">{{ $order->payment_method }}</p></td>
                                 <td><p class="in-stock">{{ $order->status }}</p></td>
                                 <td class='text-center'><a href="{{url('user/order/details/'.$order->id)}}" class="remove-icon"><i class="fa fa-eye"></i></a>
-                                    <a href="#" class="remove-icon"><i class="fa fa-download"></i></a></td>
+                                    <a href="{{url('user/order/download/'.$order->id)}}" class="remove-icon"><i class="fa fa-download"></i></a></td>
                             </tr>
                         </tbody>
                             @endforeach

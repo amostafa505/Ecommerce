@@ -14,6 +14,7 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\backend\ShippingAreaController;
 use App\Http\Controllers\backend\SubSubCategoryController;
 use App\Http\Controllers\User\CashController;
@@ -137,6 +138,28 @@ Route::middleware('auth:admin')->group(function(){
 
             });
 
+            // All Admin Orders Route
+
+            Route::prefix('orders')->group(function(){
+                //View for All Order Status
+                Route::get('/pending/orders' , [OrderController::class , 'pendingOrders'])->name('pending.orders');
+                Route::get('/order/details/{id}' , [OrderController::class , 'OrderDetails'])->name('order.details');
+                Route::get('/confirmed/orders' , [OrderController::class , 'confirmedOrders'])->name('confirmed.orders');
+                Route::get('/processing/orders' , [OrderController::class , 'processingOrders'])->name('processing.orders');
+                Route::get('/picked/orders' , [OrderController::class , 'pickedOrders'])->name('picked.orders');
+                Route::get('/shipped/orders' , [OrderController::class , 'shippedOrders'])->name('shipped.orders');
+                Route::get('/delivered/orders' , [OrderController::class , 'deliveredOrders'])->name('delivered.orders');
+                Route::get('/canceled/orders' , [OrderController::class , 'canceledOrders'])->name('canceled.orders');
+
+                //Change Order Status Section
+                Route::get('/confirm/order/{order_id}', [OrderController::class , 'confirmOrder'])->name('confirm.Order');
+                Route::get('/process/order/{order_id}', [OrderController::class , 'processOrder'])->name('process.Order');
+                Route::get('/pick/order/{order_id}', [OrderController::class , 'pickOrder'])->name('pick.Order');
+                Route::get('/ship/order/{order_id}', [OrderController::class , 'shipOrder'])->name('ship.Order');
+                Route::get('/deliver/order/{order_id}', [OrderController::class , 'deliverOrder'])->name('deliver.Order');
+                Route::get('/cancel/order/{order_id}', [OrderController::class , 'cancelOrder'])->name('cancel.Order');
+            });
+
 
     });
 });
@@ -238,6 +261,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::post('/user/update/password' , [indexController::class , 'userUpdatePassword'])->name('user.update.password');
     Route::get('/user/orders' , [indexController::class , 'userOrders'])->name('user.orders');
     Route::get('/user/order/details/{order_id}' , [indexController::class , 'userOrderDetails'])->name('user.order.details');
+    Route::get('/user/order/download/{order_id}' , [indexController::class , 'userOrderDownload'])->name('user.order.download');
 });
 
 /////////////////End FrontEnd Section
