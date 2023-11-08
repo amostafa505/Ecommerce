@@ -8,6 +8,8 @@
     <a href="" class="btn btn-primary btn-sm btn-block">Home</a>
     <a href="{{route('edit.profile')}}" class="btn btn-primary btn-sm btn-block">Profile Update</a>
     <a href="{{route('user.orders')}}" class="btn btn-primary btn-sm btn-block">My Orders</a>
+    <a href="{{route('user.returned.orders')}}" class="btn btn-primary btn-sm btn-block">My Returned Orders</a>
+    <a href="{{route('user.canceled.orders')}}" class="btn btn-primary btn-sm btn-block">My Canceled Orders</a>
     <a href="{{route('user.edit.password')}}" class="btn btn-primary btn-sm btn-block">Change Password</a>
     <a href="{{ route('user.logout') }}" class="btn btn-danger btn-sm btn-block">logout</a>
 </ul>

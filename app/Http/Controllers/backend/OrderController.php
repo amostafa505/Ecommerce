@@ -55,33 +55,43 @@ class OrderController extends Controller
 
 
     public function confirmOrder($order_id){
-        $order = Order::findorFail($order_id)->update(['status'=> 'Confirmed' , 'confirmed_date' => Carbon::now()]);
+        $order = Order::findorFail($order_id)->update(['status'=> 'Confirmed' , 'confirmed_date' => Carbon::now()->format('d F Y')]);
         return redirect()->route('pending.orders')->with('Order Changed to Confirmed Successfully');
     }//end function confirmOrder
 
     public function processOrder($order_id){
-        $order = Order::findorFail($order_id)->update(['status'=> 'Processing' , 'processing_date' => Carbon::now()]);
+        $order = Order::findorFail($order_id)->update(['status'=> 'Processing' , 'processing_date' => Carbon::now()->format('d F Y')]);
         return redirect()->route('confirmed.orders')->with('Order Changed to Processing Successfully');
     }//end function processOrder
 
     public function pickOrder($order_id){
-        $order = Order::findorFail($order_id)->update(['status'=> 'Picked' , 'picked_date' => Carbon::now()]);
+        $order = Order::findorFail($order_id)->update(['status'=> 'Picked' , 'picked_date' => Carbon::now()->format('d F Y')]);
         return redirect()->route('processing.orders')->with('Order Changed to Picked Successfully');
     }//end function pickOrder
 
     public function shipOrder($order_id){
-        $order = Order::findorFail($order_id)->update(['status'=> 'Shipped' , 'shipped_date' => Carbon::now()]);
+        $order = Order::findorFail($order_id)->update(['status'=> 'Shipped' , 'shipped_date' => Carbon::now()->format('d F Y')]);
         return redirect()->route('picked.orders')->with('Order Changed to Shipped Successfully');
     }//end function shipOrder
 
     public function deliverOrder($order_id){
-        $order = Order::findorFail($order_id)->update(['status'=> 'Delivered' , 'delivered_date' => Carbon::now()]);
+        $order = Order::findorFail($order_id)->update(['status'=> 'Delivered' , 'delivered_date' => Carbon::now()->format('d F Y')]);
         return redirect()->route('shipped.orders')->with('Order Changed to Delivered Successfully');
     }//end function deliverOrder
 
     public function cancelOrder($order_id){
-        $order = Order::findorFail($order_id)->update(['status'=> 'Canceled' , 'Cancel_date' => Carbon::now()]);
+        $order = Order::findorFail($order_id)->update(['status'=> 'Canceled' , 'Cancel_date' => Carbon::now()->format('d F Y')]);
         return redirect()->route('delivered.orders')->with('Order Changed to Canceled Successfully');
     }//end function cancelOrder
 
+    public function adminOrderDownload($order_id){
+        $order = Order::with('country','city','user')->where('id',$order_id)->first();
+    	$orderItem = OrderItem::with('product')->where('order_id',$order_id)->orderBy('id','DESC')->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('backend.order.order_invoice' , compact('order','orderItem'))->setPaper('a4')->setOptions([
+            'tempDir' => public_path(),
+            'chroot' => public_path(),
+        ]);
+        return $pdf->download('invoice.pdf');
+    }//end function userOrderDownload
 }

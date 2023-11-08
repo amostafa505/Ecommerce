@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\frontend;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Order;
@@ -169,13 +170,13 @@ class indexController extends Controller
 
     public function userOrders(){
         $orders = Order::where('user_id' , Auth::user()->id)->orderBy('id' , 'DESC')->get();
-        return view('frontend.profile.userOrders' , compact('orders'));
+        return view('frontend.orders.userOrders' , compact('orders'));
     }//end function userOrders
 
     public function userOrderDetails($order_id){
         $order = Order::with('country', 'city')->where('id' , $order_id)->where('id',$order_id)->first();
         $order_items = OrderItem::with('product')->where('order_id' , $order_id)->orderBy('id' , 'DESC')->get();
-        return view('frontend.profile.userOrderDetails' , compact('order', 'order_items'));
+        return view('frontend.orders.userOrderDetails' , compact('order', 'order_items'));
     }//end function userOrders
 
     public function userOrderDownload($order_id){
@@ -184,11 +185,29 @@ class indexController extends Controller
     	// return view('frontend.profile.order_invoice',compact('order','orderItem'));
         // dd($orderItem);
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('frontend.profile.order_invoice' , compact('order','orderItem'))->setPaper('a4')->setOptions([
+        $pdf->loadView('frontend.orders.order_invoice' , compact('order','orderItem'))->setPaper('a4')->setOptions([
             'tempDir' => public_path(),
             'chroot' => public_path(),
         ]);
         return $pdf->download('invoice.pdf');
     }//end function userOrderDownload
 
+
+    public function returnOrder(Request $request , $order_id){
+        order::findOrFail($order_id)->update([
+            'return_date' => Carbon::now()->format('d F Y'),
+            'return_reason' => $request->return_reason,
+        ]);
+        return redirect()->route('user.orders')->with('Done Send Return Order Request');
+    }// end method returnOrder
+
+    public function userReturnedOrder(){
+        $orders = Order::where('user_id' , Auth::user()->id)->where('return_reason','!=' ,NULL)->orderBy('id' , 'DESC')->get();
+        return view('frontend.orders.userReturnedOrders' , compact('orders'));
+    }//end function userOrders
+
+    public function userCanceledOrder(){
+        $orders = Order::where('user_id' , Auth::user()->id)->where('cancel_date','!=' ,NULL)->orderBy('id' , 'DESC')->get();
+        return view('frontend.orders.userCanceledOrders' , compact('orders'));
+    }//end function userOrders
 }

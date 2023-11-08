@@ -132,6 +132,32 @@
           </li>
 
 
+          <li class="treeview  {{($prefix == '/report')?'active':''}}">
+            <a href="#">
+              <i data-feather="grid"></i>
+              <span>Reports</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{($route == 'all.reports')? 'active' : ''}}"><a href="{{route('all.reports')}}"><i class="ti-more"></i>All Reports</a></li>
+            </ul>
+          </li>
+
+          <li class="treeview  {{($prefix == '/allusers')?'active':''}}">
+            <a href="#">
+              <i data-feather="grid"></i>
+              <span>All Users</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{($route == 'all.users')? 'active' : ''}}"><a href="{{route('all.users')}}"><i class="ti-more"></i>All Users</a></li>
+            </ul>
+          </li>
+
       </ul>
     </section>
 

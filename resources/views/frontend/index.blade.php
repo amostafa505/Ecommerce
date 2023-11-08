@@ -43,6 +43,8 @@
                                 <button class="btn btn-primary">Subscribe</button>
                             </form>
                         </div>
+                            {{-- {{dd($guard)}} --}}
+
                         <!-- /.sidebar-widget-body -->
                     </div>
                     <!-- /.sidebar-widget -->
@@ -174,7 +176,7 @@
                                                         <div class="action">
                                                             <ul class="list-unstyled">
                                                                 <li class="add-cart-button btn-group">
-                                                                    <button 
+                                                                    <button
                                                                         class="btn btn-primary icon" type="button"
                                                                         title="Add Cart" data-toggle="modal" data-target="#exampleModal" id="{{$product->id}}" onclick="productView(this.id)"> <i
                                                                             class="fa fa-shopping-cart"></i> </button>

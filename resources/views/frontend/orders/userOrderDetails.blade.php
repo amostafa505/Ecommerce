@@ -84,8 +84,13 @@
                                 <tr>
                                     <th> Order : </th>
                                     <th>
+                                        @if(!$order->return_reason)
                                         <span class="badge badge-pill badge-warning"
                                             style="background: #418DB9;">{{ $order->status }} </span>
+                                        @else
+                                            <span class="badge badge-pill badge-danger"
+                                            style="background: red;">Order Return Requested </span>
+                                        @endif
                                     </th>
                                 </tr>
                             </table>
@@ -141,13 +146,21 @@
 
                   </div> <!-- // END ORDER ITEM ROW -->
 
-                @if($order->status !== "delivered")
+                @if($order->status !== "Delivered")
 
                 @else
-                    <div class="form-group">
-                        <label for="label"> Order Return Reason:</label>
-                        <textarea name="return_reason" id="" class="form-control" cols="30" rows="05">Return Reason</textarea>
-                    </div>
+                    @if(!$order->return_reason)
+                    <form action="{{route('return.order',$order->id)}}" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <label for="label"> Order Return Reason:</label>
+                            <textarea name="return_reason" id="" class="form-control" cols="30" rows="05">Return Reason</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger">Return Order</button>
+                        <br><br>
+                    </form>
+                    @endif
                 @endif
 
 

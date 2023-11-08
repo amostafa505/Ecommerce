@@ -2,11 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\User\CashController;
+use App\Http\Controllers\User\StripeController;
 use App\Http\Controllers\backend\BrandController;
+use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\frontend\cartController;
 use App\Http\Controllers\User\CartPageController;
+use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\backend\CouponController;
+use App\Http\Controllers\backend\ReportController;
 use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\frontend\indexController;
 use App\Http\Controllers\backend\ProductController;
@@ -14,12 +19,8 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
-use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\backend\ShippingAreaController;
 use App\Http\Controllers\backend\SubSubCategoryController;
-use App\Http\Controllers\User\CashController;
-use App\Http\Controllers\User\CheckoutController;
-use App\Http\Controllers\User\StripeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -158,8 +159,24 @@ Route::middleware('auth:admin')->group(function(){
                 Route::get('/ship/order/{order_id}', [OrderController::class , 'shipOrder'])->name('ship.Order');
                 Route::get('/deliver/order/{order_id}', [OrderController::class , 'deliverOrder'])->name('deliver.Order');
                 Route::get('/cancel/order/{order_id}', [OrderController::class , 'cancelOrder'])->name('cancel.Order');
+                Route::get('/download/{order_id}' , [OrderController::class , 'adminOrderDownload'])->name('admin.order.download');
             });
 
+            // All Admin Slider Route
+
+            Route::prefix('Report')->group(function(){
+                Route::get('/view' , [ReportController::class , 'viewReports'])->name('all.reports');
+                Route::post('/search/by/date', [ReportController::class, 'ReportByDate'])->name('search-by-date');
+                Route::post('/search/by/month', [ReportController::class, 'ReportByMonth'])->name('search-by-month');
+                Route::post('/search/by/year', [ReportController::class, 'ReportByYear'])->name('search-by-year');
+            });
+
+            // All Admin Get User Route
+
+            Route::prefix('allusers')->group(function(){
+                Route::get('/view' , [AdminProfileController::class , 'viewAllUsers'])->name('all.users');
+
+            });
 
     });
 });
@@ -228,7 +245,10 @@ Route::Get('/remove-coupon' , [cartController::class , 'couponRemove']);
 //Checkout Section
 Route::Get('/checkout-view' , [CheckoutController::class , 'checkoutView'])->name('checkout');
 
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
+
+//['auth:sanctum',config('jetstream.auth_session'),'verified']
+
+Route::middleware(['user','auth'])->group(function () {
     Route::get('/dashboard', [indexController::class , 'userProfile'])->name('dashboard');
     //Add To Wishlist
     Route::POST('/addToWishList/{id}' , [cartController::class , 'addToWishlist'])->name('addToWishilist');
@@ -262,6 +282,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('/user/orders' , [indexController::class , 'userOrders'])->name('user.orders');
     Route::get('/user/order/details/{order_id}' , [indexController::class , 'userOrderDetails'])->name('user.order.details');
     Route::get('/user/order/download/{order_id}' , [indexController::class , 'userOrderDownload'])->name('user.order.download');
+    Route::post('/return/order/{order_id}', [indexController::class , 'returnOrder'])->name('return.order');
+    Route::get('/user/returned/orders' , [indexController::class , 'userReturnedOrder'])->name('user.returned.orders');
+    Route::get('/user/canceled/orders' , [indexController::class , 'userCanceledOrder'])->name('user.canceled.orders');
 });
 
 /////////////////End FrontEnd Section

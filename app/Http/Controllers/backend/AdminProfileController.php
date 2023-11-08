@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use toastr;
+use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -71,4 +72,10 @@ class AdminProfileController extends Controller
         }
 
     }//end update password function
+
+
+    public function viewAllUsers(){
+        $users = User::latest()->get();
+        return view('backend.users.allUsers',compact('users'));
+    }//end viewAllUsers function
 }
