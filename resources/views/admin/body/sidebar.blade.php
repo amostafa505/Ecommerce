@@ -158,6 +158,22 @@
             </ul>
           </li>
 
+          <li class="treeview  {{($prefix == '/blog')?'active':''}}">
+            <a href="#">
+              <i data-feather="grid"></i>
+              <span>All Blog Section</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="{{($route == 'all.blog.categories')? 'active' : ''}}"><a href="{{route('all.blog.categories')}}"><i class="ti-more"></i>All Blog Category</a></li>
+              </ul>
+            <ul class="treeview-menu">
+              <li class="{{($route == 'all.blog.posts')? 'active' : ''}}"><a href="{{route('all.blog.posts')}}"><i class="ti-more"></i>All Blog Posts</a></li>
+            </ul>
+          </li>
+
       </ul>
     </section>
 

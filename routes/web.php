@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\User\CashController;
 use App\Http\Controllers\User\StripeController;
+use App\Http\Controllers\backend\BlogController;
 use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\frontend\cartController;
@@ -175,7 +176,25 @@ Route::middleware('auth:admin')->group(function(){
 
             Route::prefix('allusers')->group(function(){
                 Route::get('/view' , [AdminProfileController::class , 'viewAllUsers'])->name('all.users');
+            });
 
+            // All Admin Blog Route
+
+            Route::prefix('blog')->group(function(){
+                // All Blog Category Route
+                Route::get('/category/view' , [BlogController::class , 'viewBlogCategory'])->name('all.blog.categories');
+                Route::post('/category/store' , [BlogController::class , 'blogStore'])->name('add.blog.category');
+                Route::get('/category/edit/{id}' , [BlogController::class , 'editBlogCategory'])->name('edit.blog.category');
+                Route::post('/category/update' , [BlogController::class , 'updateBlogCategory'])->name('update.blog.category');
+                Route::get('/category/delete/{id}' , [BlogController::class , 'deleteBlogCategory'])->name('delete.blog.category');
+
+                //All Blog Posts Route
+                Route::get('/posts/view' , [BlogController::class , 'viewposts'])->name('all.blog.posts');
+                Route::get('/post/add' , [BlogController::class , 'blogAdd'])->name('add.blog.posts');
+                Route::post('/post/store' , [BlogController::class , 'postStore'])->name('store.blog.post');
+                Route::get('/post/edit/{id}' , [BlogController::class , 'editPost'])->name('edit.blog.post');
+                Route::post('/post/update' , [BlogController::class , 'updatePost'])->name('update.blog.post');
+                Route::get('/post/delete/{id}' , [BlogController::class , 'deletePost'])->name('delete.blog.post');
             });
 
     });

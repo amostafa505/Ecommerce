@@ -84,6 +84,6 @@ class BrandController extends Controller
         }
         $brand->delete();
         return redirect()->back()->with('success' , 'Brand Deleted Successfully');
-    }
+    }//end update deleteBrand
 }
 
