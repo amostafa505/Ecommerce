@@ -30,7 +30,7 @@
                                                     <h5>Post Title En <span class="text-danger">*</span></h5>
                                                     <div class="controls">
                                                         <input type="text" name="post_title_en" class="form-control"
-                                                            required="" value={{$blogPost->post_title_en}}>
+                                                            required="" value="{{$blogPost->post_title_en}}">
                                                         @error('post_title_en')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
@@ -42,8 +42,8 @@
                                                     <h5>Post Title Ar <span class="text-danger">*</span></h5>
                                                     <div class="controls">
                                                         <input type="text" name="post_title_ar" class="form-control"
-                                                            required="" value={{$blogPost->post_title_ar}}>
-                                                        @error('post_title_hin')
+                                                            required="" value="{{$blogPost->post_title_ar}}">
+                                                        @error('post_title_ar')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>

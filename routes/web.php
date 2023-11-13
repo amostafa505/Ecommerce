@@ -22,6 +22,7 @@ use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\ShippingAreaController;
 use App\Http\Controllers\backend\SubSubCategoryController;
+use App\Http\Controllers\frontend\HomeBlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -264,6 +265,10 @@ Route::Get('/remove-coupon' , [cartController::class , 'couponRemove']);
 //Checkout Section
 Route::Get('/checkout-view' , [CheckoutController::class , 'checkoutView'])->name('checkout');
 
+//Blog All Front Routes
+Route::get('/blog' , [HomeBlogController::class , 'viewBlogs'])->name('all.blogs');
+Route::get('/blog/details/{Blog_id}' , [HomeBlogController::class , 'blogDetails'])->name('blog.details');
+Route::get('/blog/category/posts/{category_id}' , [HomeBlogController::class , 'getPostsByCategory'])->name('postsByCategory');
 
 //['auth:sanctum',config('jetstream.auth_session'),'verified']
 

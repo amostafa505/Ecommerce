@@ -2,10 +2,8 @@
     $categories = App\Models\Category::latest()->get();
 @endphp
 <div class="sidebar-widget wow fadeInUp">
-    <h3 class="section-title">shop by</h3>
-    <div class="widget-header">
-      <h4 class="widget-title">Category</h4>
-    </div>
+    <h3 class="section-title">shop by Category</h3>
+    
     <div class="sidebar-widget-body">
       <div class="accordion">
         @foreach($categories as $category)

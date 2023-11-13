@@ -12,7 +12,7 @@ class BlogController extends Controller
 {
     public function viewBlogCategory(){
         $blogcategories = BlogCategory::latest()->get();
-        return view('backend.blog.category.view' , compact('blogcategories'));
+        return view('backend.Blog.Category.view' , compact('blogcategories'));
     }//end function viewBlogCategory
 
 
@@ -33,7 +33,7 @@ class BlogController extends Controller
 
     public function editBlogCategory($id){
         $blogCategory = BlogCategory::find($id);
-        return view('backend.blog.category.edit_category' , compact('blogCategory'));
+        return view('backend.Blog.Category.edit_category' , compact('blogCategory'));
     }//end edit Category
 
     public function updateBlogCategory(Request $request){
@@ -59,12 +59,12 @@ class BlogController extends Controller
     public function viewposts(){
         $blogCategory = BlogCategory::latest()->get();
         $blogposts = BlogPost::latest()->get();
-        return view('backend.blog.post.view' , compact('blogposts','blogCategory'));
+        return view('backend.Blog.Post.view' , compact('blogposts','blogCategory'));
     }//end function viewposts
 
     public function blogAdd(){
         $blogCategory = BlogCategory::latest()->get();
-        return view('backend.blog.post.addPost',compact('blogCategory'));
+        return view('backend.Blog.Post.addPost',compact('blogCategory'));
     }// end function blogAdd
 
     public function postStore(Request $request){
@@ -77,7 +77,7 @@ class BlogController extends Controller
         $exten = $file->getClientOriginalExtension();
         $newname = uniqid() . '.' . $exten;
         //save file in the local drive & resize it
-        Image::make($file)->resize(917,1000)->save('uploads/posts/'.$newname);
+        Image::make($file)->resize(780,433)->save('uploads/posts/'.$newname);
         $image_url = 'uploads/posts/'.$newname;
         $blogPost = new BlogPost;
         $blogPost->category_id = $request->category_id;
@@ -97,7 +97,7 @@ class BlogController extends Controller
     public function editPost($id){
         $blogPost = BlogPost::findOrfail($id);
         $blogCategory = BlogCategory::latest()->get();
-        return view('backend.blog.post.edit_post',compact('blogCategory', 'blogPost'));
+        return view('backend.Blog.Post.edit_post',compact('blogCategory', 'blogPost'));
     }// end function blogAdd
 
     public function updatePost(Request $request){
@@ -111,7 +111,7 @@ class BlogController extends Controller
                 $exten = $file->getClientOriginalExtension();
                 $newname = uniqid() . '.' . $exten;
                 //save file in the local drive & resize it
-                Image::make($file)->resize(917,1000)->save('uploads/posts/'.$newname);
+                Image::make($file)->resize(780,433)->save('uploads/posts/'.$newname);
                 $image_url = 'uploads/posts/'.$newname;
                 $blogPost->category_id = $request->category_id;
                 $blogPost->post_title_en = $request->post_title_en;
@@ -147,5 +147,5 @@ class BlogController extends Controller
         }
         $blogPost->delete();
         return redirect()->back()->with('success' , 'Blog Post Deleted Successfully');
-    }//end update deleteBrand
+    }//end update deletePost
 }

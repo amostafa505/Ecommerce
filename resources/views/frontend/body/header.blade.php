@@ -207,7 +207,11 @@
                             </li>
                             @endforeach {{-- End Category --}}
 
-                                <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a>
+                                <li class="dropdown  navbar-right special-menu">
+                                     <a href="#">Todays offer</a>
+                                </li>
+                                <li class="dropdown  navbar-right special-menu">
+                                    <a href="{{route('all.blogs')}}">Blog</a>
                                 </li>
                             </ul>
                             <!-- /.navbar-nav -->
