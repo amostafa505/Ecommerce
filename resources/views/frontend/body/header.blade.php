@@ -52,12 +52,15 @@
     </div>
     <!-- /.header-top -->
     <!-- ============================================== TOP MENU : END ============================================== -->
+    @php
+       $setting = App\Models\SiteSetting::findOrFail(1);
+    @endphp
     <div class="main-header">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
                     <!-- ============================================================= LOGO ============================================================= -->
-                    <div class="logo"> <a href="/"> <img src="{{asset('frontend/assets/images/logo.png')}}" alt="logo"> </a>
+                    <div class="logo"> <a href="/"> <img src="{{asset($setting->logo)}}" alt="logo"> </a>
                     </div>
                     <!-- /.logo -->
                     <!-- ============================================================= LOGO : END ============================================================= -->

@@ -168,8 +168,6 @@
             </a>
             <ul class="treeview-menu">
                 <li class="{{($route == 'all.blog.categories')? 'active' : ''}}"><a href="{{route('all.blog.categories')}}"><i class="ti-more"></i>All Blog Category</a></li>
-              </ul>
-            <ul class="treeview-menu">
               <li class="{{($route == 'all.blog.posts')? 'active' : ''}}"><a href="{{route('all.blog.posts')}}"><i class="ti-more"></i>All Blog Posts</a></li>
             </ul>
           </li>
@@ -183,9 +181,10 @@
               </span>
             </a>
             <ul class="treeview-menu">
-                <li class="{{($route == 'setting')? 'active' : ''}}"><a href="{{route('setting')}}"><i class="ti-more"></i>Update Setting</a></li>
+                <li class="{{($route == 'setting')? 'active' : ''}}"><a href="{{route('setting')}}"><i class="ti-more"></i>Site Setting</a></li>
+                <li class="{{($route == 'seo')? 'active' : ''}}"><a href="{{route('seo')}}"><i class="ti-more"></i>Seo Setting</a></li>
             </ul>
-            
+
           </li>
       </ul>
     </section>

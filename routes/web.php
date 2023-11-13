@@ -204,6 +204,8 @@ Route::middleware('auth:admin')->group(function(){
             Route::prefix('site')->group(function(){
                 Route::get('/setting' , [SiteSettingController::class , 'setting'])->name('setting');
                 Route::post('/update/setting' , [SiteSettingController::class , 'updateSetting'])->name('update.setting');
+                Route::get('/seo' , [SiteSettingController::class , 'seo'])->name('seo');
+                Route::post('/update/seo' , [SiteSettingController::class , 'updateSeo'])->name('update.seo');
             });
 
     });
