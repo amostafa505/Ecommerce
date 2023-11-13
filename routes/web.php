@@ -21,6 +21,7 @@ use App\Http\Controllers\frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\ShippingAreaController;
+use App\Http\Controllers\backend\SiteSettingController;
 use App\Http\Controllers\backend\SubSubCategoryController;
 use App\Http\Controllers\frontend\HomeBlogController;
 
@@ -196,6 +197,13 @@ Route::middleware('auth:admin')->group(function(){
                 Route::get('/post/edit/{id}' , [BlogController::class , 'editPost'])->name('edit.blog.post');
                 Route::post('/post/update' , [BlogController::class , 'updatePost'])->name('update.blog.post');
                 Route::get('/post/delete/{id}' , [BlogController::class , 'deletePost'])->name('delete.blog.post');
+            });
+
+            // All Admin Get User Route
+
+            Route::prefix('site')->group(function(){
+                Route::get('/setting' , [SiteSettingController::class , 'setting'])->name('setting');
+                Route::post('/update/setting' , [SiteSettingController::class , 'updateSetting'])->name('update.setting');
             });
 
     });

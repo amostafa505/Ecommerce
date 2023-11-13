@@ -174,6 +174,19 @@
             </ul>
           </li>
 
+          <li class="treeview  {{($prefix == '/Site')?'active':''}}">
+            <a href="#">
+              <i data-feather="grid"></i>
+              <span>All Site Setting Section</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="{{($route == 'setting')? 'active' : ''}}"><a href="{{route('setting')}}"><i class="ti-more"></i>Update Setting</a></li>
+            </ul>
+            
+          </li>
       </ul>
     </section>
 
