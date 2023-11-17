@@ -155,6 +155,7 @@ Route::middleware('auth:admin')->group(function(){
                 Route::get('/delivered/orders' , [OrderController::class , 'deliveredOrders'])->name('delivered.orders');
                 Route::get('/canceled/orders' , [OrderController::class , 'canceledOrders'])->name('canceled.orders');
 
+
                 //Change Order Status Section
                 Route::get('/confirm/order/{order_id}', [OrderController::class , 'confirmOrder'])->name('confirm.Order');
                 Route::get('/process/order/{order_id}', [OrderController::class , 'processOrder'])->name('process.Order');
@@ -163,6 +164,11 @@ Route::middleware('auth:admin')->group(function(){
                 Route::get('/deliver/order/{order_id}', [OrderController::class , 'deliverOrder'])->name('deliver.Order');
                 Route::get('/cancel/order/{order_id}', [OrderController::class , 'cancelOrder'])->name('cancel.Order');
                 Route::get('/download/{order_id}' , [OrderController::class , 'adminOrderDownload'])->name('admin.order.download');
+
+                //All Return Order's and Approvals Routes
+                Route::get('/order/returned/{order_id}' , [OrderController::class , 'approveReturnRequest'])->name('approve.order.return');
+                Route::get('/returned/orders/unapproved', [OrderController::class , 'unapprovedRequest'])->name('returned.orders.unapproved');
+                Route::get('/returned/orders/approved', [OrderController::class , 'approvedRequest'])->name('returned.orders.approved');
             });
 
             // All Admin Slider Route

@@ -168,6 +168,8 @@ class indexController extends Controller
         ));
     }//end productModalAjax
 
+
+    ////////////////////// Order Section //////////////////////
     public function userOrders(){
         $orders = Order::where('user_id' , Auth::user()->id)->orderBy('id' , 'DESC')->get();
         return view('frontend.orders.userOrders' , compact('orders'));
@@ -197,6 +199,7 @@ class indexController extends Controller
         order::findOrFail($order_id)->update([
             'return_date' => Carbon::now()->format('d F Y'),
             'return_reason' => $request->return_reason,
+            'return_order' => 1
         ]);
         return redirect()->route('user.orders')->with('Done Send Return Order Request');
     }// end method returnOrder

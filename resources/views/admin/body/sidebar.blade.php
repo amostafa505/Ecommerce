@@ -128,6 +128,8 @@
               <li class="{{($route == 'shipped.orders')? 'active' : ''}}"><a href="{{route('shipped.orders')}}"><i class="ti-more"></i>All Shipped Orders</a></li>
               <li class="{{($route == 'delivered.orders')? 'active' : ''}}"><a href="{{route('delivered.orders')}}"><i class="ti-more"></i>All Delivered Orders</a></li>
               <li class="{{($route == 'canceled.orders')? 'active' : ''}}"><a href="{{route('canceled.orders')}}"><i class="ti-more"></i>All Canceled Orders</a></li>
+              <li class="{{($route == 'returned.orders.unapproved')? 'active' : ''}}"><a href="{{route('returned.orders.unapproved')}}"><i class="ti-more"></i>All Returned Orders (UnApproved)</a></li>
+              <li class="{{($route == 'returned.orders.approved')? 'active' : ''}}"><a href="{{route('returned.orders.approved')}}"><i class="ti-more"></i>All Returned Orders (Approved)</a></li>
             </ul>
           </li>
 

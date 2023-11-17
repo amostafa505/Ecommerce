@@ -17,8 +17,8 @@
                                 <th>Date</th>
                                 <th>Total</th>
                                 <th>Invoice</th>
-                                <th>Order</th>
-                                <th>Action</th>
+                                <th>Order Number</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         @foreach ($orders as $order)
@@ -29,12 +29,24 @@
                                         {{ $order->order_date }}
                                     </div>
                                 </td>
-                                <td><p class="text"> ${{ $order->amount }}<p></td>
-                                 <td><p class="in-stock">{{ $order->payment_method }}</p></td>
-                                <td><p class="in-stock"><span class="badge badge-bill" style="background-color: #418D89">{{ $order->status }}</span>
-                                    <span class="badge badge-bill" style="background-color: red">Order Return Requested</span></p></td>
-                                <td class='text-center'><a href="{{url('user/order/details/'.$order->id)}}" class="remove-icon"><i class="fa fa-eye"></i></a>
-                                    <a href="{{url('user/order/download/'.$order->id)}}" class="remove-icon"><i class="fa fa-download"></i></a></td>
+                                <td><p class="text"> ${{ $order->amount }}</p></td>
+                                <td><p class="in-stock">{{ $order->payment_method }}</p></td>
+                                <td><p class="in-stock">{{ $order->order_number }}</p></td>
+                                <td class="col-md-2">
+                                    <label for="">
+                                    @if($order->return_order == 0)
+                                        <span class="badge badge-pill badge-warning" style="background: #418DB9;"> No Return Request </span>
+                                    @elseif($order->return_order == 1)
+                                        <span class="badge badge-pill badge-warning" style="background: #800000;"> Pending </span>
+                                        <span class="badge badge-pill badge-warning" style="background:red;">Return Requested </span>
+
+                                    @elseif($order->return_order == 2)
+                                        <span class="badge badge-pill badge-warning" style="background: #008000;">Success </span>
+                                    @endif
+
+
+                                    </label>
+                                </td>
                             </tr>
                         </tbody>
                             @endforeach

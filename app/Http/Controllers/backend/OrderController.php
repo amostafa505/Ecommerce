@@ -94,4 +94,20 @@ class OrderController extends Controller
         ]);
         return $pdf->download('invoice.pdf');
     }//end function userOrderDownload
+
+    public function unapprovedRequest(){
+    	$orders = Order::where('return_order',1)->orderBy('id','DESC')->get();
+    	return view('backend.order.unapproved_orders',compact('orders'));
+    }//end function unapprovedRequest
+
+    public function approvedRequest(){
+        $orders = Order::where('return_order',2)->orderBy('id','DESC')->get();
+        return view('backend.order.approved_orders',compact('orders'));
+    }//end function unapprovedRequest
+
+    public function approveReturnRequest($order_id){
+        $order = Order::where('id' , $order_id)->update(['return_order'=>2,'updated_at'=>now()]);
+        return redirect()->back()->with('success' , 'Order Returned Approved');
+    }//end function approveReturnRequest
+
 }
