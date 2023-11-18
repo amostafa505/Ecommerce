@@ -248,4 +248,10 @@ class ProductController extends Controller
         return redirect()->back()->with('success' , 'Product Activated Successfully');
 
     }//end ActiveProduct method
+
+
+    public function manageStock(){
+        $products = Product::latest()->get();
+        return view('backend.Product.manageStock' , compact('products'));
+    }//end manageStock method
 }

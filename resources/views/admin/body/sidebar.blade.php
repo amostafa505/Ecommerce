@@ -68,7 +68,9 @@
           <ul class="treeview-menu">
             <li class="{{($route == 'add.product')? 'active' : ''}}"><a href="{{route('add.product')}}"><i class="ti-more"></i>Add Product</a></li>
             <li class="{{($route == 'all.products')? 'active' : ''}}"><a href="{{route('all.products')}}"><i class="ti-more"></i>Manage Product</a></li>
-          </ul>
+            <li class="{{($route == 'manage.stock')? 'active' : ''}}"><a href="{{route('manage.stock')}}"><i class="ti-more"></i>Manage Stock</a></li>
+
+        </ul>
         </li>
 
         <li class="treeview {{($prefix == '/Slider')?'active':''}}">
@@ -187,6 +189,21 @@
                 <li class="{{($route == 'seo')? 'active' : ''}}"><a href="{{route('seo')}}"><i class="ti-more"></i>Seo Setting</a></li>
             </ul>
 
+          </li>
+
+          <li class="treeview  {{($prefix == '/review')?'active':''}}">
+            <a href="#">
+              <i data-feather="grid"></i>
+              <span>All Reviews Section</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{($route == 'pending.reviews')? 'active' : ''}}"><a href="{{route('pending.reviews')}}"><i class="ti-more"></i>All Pending Reviews</a></li>
+              <li class="{{($route == 'approved.reviews')? 'active' : ''}}"><a href="{{route('approved.reviews')}}"><i class="ti-more"></i>All Approved Reviews</a></li>
+
+            </ul>
           </li>
       </ul>
     </section>

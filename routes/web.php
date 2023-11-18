@@ -24,6 +24,7 @@ use App\Http\Controllers\backend\ShippingAreaController;
 use App\Http\Controllers\backend\SiteSettingController;
 use App\Http\Controllers\backend\SubSubCategoryController;
 use App\Http\Controllers\frontend\HomeBlogController;
+use App\Http\Controllers\User\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +99,7 @@ Route::middleware('auth:admin')->group(function(){
             Route::get('/img/delete/{id}' , [ProductController::class , 'deleteProductImage'])->name('delete.product.image');
             Route::get('/inactive/{id}' , [ProductController::class , 'inActiveProduct'])->name('inactive.product');
             Route::get('/active/{id}' , [ProductController::class , 'activeProduct'])->name('active.product');
+            Route::get('/Manage/Stock' , [ProductController::class , 'manageStock'])->name('manage.stock');
         });
 
             // All Admin Slider Route
@@ -206,12 +208,19 @@ Route::middleware('auth:admin')->group(function(){
             });
 
             // All Admin Get User Route
-
             Route::prefix('site')->group(function(){
                 Route::get('/setting' , [SiteSettingController::class , 'setting'])->name('setting');
                 Route::post('/update/setting' , [SiteSettingController::class , 'updateSetting'])->name('update.setting');
                 Route::get('/seo' , [SiteSettingController::class , 'seo'])->name('seo');
                 Route::post('/update/seo' , [SiteSettingController::class , 'updateSeo'])->name('update.seo');
+            });
+
+            // All Admin Review Route
+            Route::prefix('review')->group(function(){
+                Route::get('/review/pending' , [ReviewController::class , 'pendingReviews'])->name('pending.reviews');
+                Route::get('/review/approved' , [ReviewController::class , 'approvedReviews'])->name('approved.reviews');
+                Route::get('/approve/review/{review_id}', [OrderController::class , 'approveReview'])->name('approve.review');
+                Route::get('/approve/delete/{review_id}', [OrderController::class , 'deleteReview'])->name('delete.review');
             });
 
     });
@@ -304,9 +313,7 @@ Route::middleware(['user','auth'])->group(function () {
 
     //Remove from Cart Page
     Route::get('/cartPage/remove/{rowId}' , [CartPageController::class , 'RemoveCartProduct'])->name('deleteCartProduct');
-
     Route::get('/cart-increment/{rowId}', [CartPageController::class, 'CartIncrement']);
-
     Route::get('/cart-Decrement/{rowId}', [CartPageController::class, 'CartDecrement']);
 
     //Stripe Order Store
@@ -314,17 +321,25 @@ Route::middleware(['user','auth'])->group(function () {
     //Cash On Delivery Order Store
     Route::Post('/CashPayment' , [CashController::class , 'cashOrder'])->name('Cash-Order');
 
+    // Users Profile & Logout Section
     Route::get('/user/logout' , [indexController::class , 'userLogout'])->name('user.logout');
     Route::get('/edit/profile' , [indexController::class , 'editProfile'])->name('edit.profile');
     Route::Post('/update/profile' , [indexController::class , 'updateProfile'])->name('update.profile');
     Route::get('/user/edit/password' , [indexController::class , 'userEditPassword'])->name('user.edit.password');
     Route::post('/user/update/password' , [indexController::class , 'userUpdatePassword'])->name('user.update.password');
+
+    //User Orders Section
     Route::get('/user/orders' , [indexController::class , 'userOrders'])->name('user.orders');
     Route::get('/user/order/details/{order_id}' , [indexController::class , 'userOrderDetails'])->name('user.order.details');
     Route::get('/user/order/download/{order_id}' , [indexController::class , 'userOrderDownload'])->name('user.order.download');
     Route::post('/return/order/{order_id}', [indexController::class , 'returnOrder'])->name('return.order');
     Route::get('/user/returned/orders' , [indexController::class , 'userReturnedOrder'])->name('user.returned.orders');
     Route::get('/user/canceled/orders' , [indexController::class , 'userCanceledOrder'])->name('user.canceled.orders');
+
+    //User Review Section
+    Route::post('/user/review/{product_id}', [ReviewController::class , 'storeReview'])->name('user.review');
+
+
 });
 
 /////////////////End FrontEnd Section

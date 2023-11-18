@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Order;
+use App\Models\Review;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
@@ -24,10 +25,8 @@ class indexController extends Controller
         $categories = Category::latest()->get();
         $sliders = Slider::where('status' , 1)->orderBy('id' , 'DESC')->limit(3)->get();
         $products = Product::where('status' , 1)->orderBy('id' , 'DESC')->get();
-        // $hotdeals = Product::where('hot_deals' , 1)->where('status' , 1)->orderBy('id' , 'DESC')->limit(3)->get();
-        // $specialoffer = Product::where('special_offer' , 1)->where('status' , 1)->orderBy('id' , 'DESC')->limit(3)->get();
-        // $specialdeal = Product::where('special_deals' , 1)->where('status' , 1)->orderBy('id' , 'DESC')->limit(3)->get();
         $featured = Product::where('featured' , 1)->where('status' , 1)->orderBy('id' , 'DESC')->limit(6)->get();
+
         return view('frontend.index' , compact('categories' , 'sliders' , 'products', 'featured'));
     }//end index
 
@@ -116,7 +115,15 @@ class indexController extends Controller
         $productCategory =$product->category_id;
         $relatedProducts = Product::where('category_id',$productCategory)->where('id' , '!=' , $id)->orderBy('id' , 'DESC')->get();
         $multiImg = MultiImg::where('product_id' , $id)->get();
-        return view('frontend.product.product-details',compact('product' , 'multiImg' , 'productColorEn', 'productColorAr','productSizeEn','productSizeAr','relatedProducts'));
+        $reviews = Review::where('product_id' , $id)->where('status',1)->orderBy('id' , 'DESC')->get();
+        $reviews_sum = Review::where('product_id' , $id)->orderBy('id' , 'DESC')->sum('stars');
+        if($reviews->count() >= 1 && $reviews_sum > 0){
+            $reviewValue = $reviews_sum/$reviews->count();
+        }else{
+            $reviewValue = 5;
+        }
+        return view('frontend.product.product-details',compact('product' , 'multiImg' , 'productColorEn', 'productColorAr','productSizeEn','productSizeAr','relatedProducts','reviews' ,
+    'reviewValue'));
     }//end Product Details Function
 
 

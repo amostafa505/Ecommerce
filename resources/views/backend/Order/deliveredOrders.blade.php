@@ -38,8 +38,9 @@
 
                                <td width="25%">
                         <a href="{{ route('order.details',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-eye"></i> </a>
-                        <a href="{{ route('admin.order.download',$item->id) }}" class="btn btn-danger" title="Download Invoice">
-                            <i class="fa fa-download"></i></a>
+                        <a href="{{ route('admin.order.download',$item->id) }}" class="btn btn-danger" title="Download Invoice"><i class="fa fa-download"></i></a>
+                        <a href="{{route('cancel.Order',$item->id)}}"  class="btn btn-danger" id="cancelOrder" title="Cancel Order"> <i class="fa fa-arrow-down"></i></a>
+
                                </td>
 
                             </tr>
