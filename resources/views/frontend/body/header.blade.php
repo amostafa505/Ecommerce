@@ -10,6 +10,7 @@
                         <li><a href="{{route('Mycart')}}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
                         <li><a href="{{route('checkout')}}"><i class="icon fa fa-check"></i>Checkout</a></li>
                         @auth
+                        <li><a href="" type="button" data-toggle="modal" data-target="#ordertraking"><i class="icon fa fa-check"></i>Order Traking</a></li>
                             <li><a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>My Profile</a></li>
                         @else
                             <li><a href="{{route('login')}}"><i class="icon fa fa-lock"></i>Login/Register</a></li>
@@ -71,7 +72,8 @@
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
-                        <form>
+                        <form action="{{route('product.search')}}" method="POST">
+                            @csrf
                             <div class="control-group">
                                 <ul class="categories-filter animate-dropdown">
                                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown"
@@ -89,11 +91,13 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                <input class="search-field" placeholder="Search here..." />
-                                <a class="search-button" href="#"></a>
+                                <input class="search-field" name="search" id="search" onfocus="search_result_show()" onblur="search_result_hide()" placeholder="Search here..." />
+                                <button class="search-button" type="submit">  </button>
                             </div>
                         </form>
+                        <div id="searchProducts"></div>
                     </div>
+
                     <!-- /.search-area -->
                     <!-- ============================================================= SEARCH AREA : END ============================================================= -->
                 </div>
@@ -234,5 +238,58 @@
     </div>
     <!-- /.header-nav -->
     <!-- ============================================== NAVBAR : END ============================================== -->
+<!-- Order Traking Modal -->
+<div class="modal fade" id="ordertraking" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Track Your Order </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
 
+          <form method="post" action="{{ route('order.tracking') }}">
+            @csrf
+           <div class="modal-body">
+            <label>Invoice Code</label>
+            <input type="text" name="code" required="" class="form-control" placeholder="Your Order Invoice Number">
+           </div>
+
+           <button class="btn btn-danger" type="submit" style="margin-left: 17px;"> Track Now </button>
+
+          </form>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- End Order Traking Modal -->
 </header>
+<style>
+
+    .search-area{
+      position: relative;
+    }
+      #searchProducts {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        z-index: 999;
+        border-radius: 8px;
+        margin-top: 5px;
+      }
+    </style>
+<script>
+    function search_result_hide(){
+      $("#searchProducts").slideUp();
+    }
+     function search_result_show(){
+        $("#searchProducts").slideDown();
+    }
+</script>

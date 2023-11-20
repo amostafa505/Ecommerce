@@ -1,3 +1,7 @@
+@php
+    $breadcrumb = App\Models\SubSubCategory::with(['subcategory', 'category'])->where('id' ,$product->subsubcategory_id)->first();
+    // dd($breadcrumb)
+@endphp
 @extends('frontend.master')
 @section('content')
 
@@ -5,9 +9,10 @@
         <div class="container">
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Clothing</a></li>
-                    <li class='active'>Floral Print Buttoned</li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{route('category.Products',[$breadcrumb->category->id , $breadcrumb->category->category_slug_en])}}">{{$breadcrumb->category->category_name_en}}</a></li>
+                    <li><a href="{{route('subCategory.Products',[$breadcrumb->subcategory->id , $breadcrumb->subcategory->subcategory_slug_en])}}">{{$breadcrumb->subcategory->subcategory_name_en}}</a></li>
+                    <li class='active'><a href="{{route('subSubCategory.Products',[$breadcrumb->id , $breadcrumb->subsubcategory_slug_en])}}">{{$breadcrumb->subsubcategory_name_en}}</a></li>
                 </ul>
             </div><!-- /.breadcrumb-inner -->
         </div><!-- /.container -->
@@ -293,24 +298,30 @@
                                     </div><!-- /.tab-pane -->
                                     <div id="review" class="tab-pane">
                                         <div class="product-tab">
-                                            @foreach($reviews as $review)
-                                            @if($loop->first)
                                             <div class="product-reviews">
                                                 <h4 class="title">Customer Reviews</h4>
-
+                                            @foreach($reviews as $review)
                                                 <div class="reviews">
                                                     <div class="review">
-                                                        <img style="border-radius: 50%" src="{{ (!empty($review->user->profile_photo_path))? url('uploads/user_images/'.$review->user->profile_photo_path):url('uploads/no_image.jpg') }}" width="40px;" height="40px;"><b> {{ $review->user->name }}</b>
+                                                        <img style="border-radius: 50%" src="{{ (!empty($review->user->profile_photo_path))? url('uploads/user_images/'.$review->user->profile_photo_path):url('uploads/no_image.jpg') }}" width="40px;" height="40px;">
+                                                        <b> {{ $review->user->name }}</b>
+                                                         <div class="rating">
+                                                            @for($i=1; $i <= $review->stars; $i++)
+                                                                <i class="fa fa-star checked"></i>
+                                                            @endfor
+
+                                                            @for($j= $review->stars ; $j<5; $j++)
+                                                                <i class="fa fa-star"></i>
+                                                            @endfor
+                                                        </div>
                                                         <div class="review-title"><span class="summary">{{$review->summary}}</span>
                                                             <span class="date"><i
                                                                     class="fa fa-calendar"></i><span>{{$review->created_at->diffForHumans()}}</span></span></div>
                                                         <div class="text">"{{Str::limit($review->review,150)}}"</div>
                                                     </div>
-
                                                 </div><!-- /.reviews -->
+                                                @endforeach
                                             </div><!-- /.product-reviews -->
-                                            @endif
-                                            @endforeach
 
 
 

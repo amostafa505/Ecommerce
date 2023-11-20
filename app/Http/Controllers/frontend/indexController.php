@@ -115,8 +115,11 @@ class indexController extends Controller
         $productCategory =$product->category_id;
         $relatedProducts = Product::where('category_id',$productCategory)->where('id' , '!=' , $id)->orderBy('id' , 'DESC')->get();
         $multiImg = MultiImg::where('product_id' , $id)->get();
+        //getting all the reviews for showing comments and summary
         $reviews = Review::where('product_id' , $id)->where('status',1)->orderBy('id' , 'DESC')->get();
+        //getting all the sum of the review stars so after this can get the
         $reviews_sum = Review::where('product_id' , $id)->orderBy('id' , 'DESC')->sum('stars');
+        //getting the stars avarage and if there is now reviews yet show that the item getting the 5 stars
         if($reviews->count() >= 1 && $reviews_sum > 0){
             $reviewValue = $reviews_sum/$reviews->count();
         }else{
@@ -220,4 +223,26 @@ class indexController extends Controller
         $orders = Order::where('user_id' , Auth::user()->id)->where('cancel_date','!=' ,NULL)->orderBy('id' , 'DESC')->get();
         return view('frontend.orders.userCanceledOrders' , compact('orders'));
     }//end function userOrders
+
+    public function orderTracking(Request $request){
+        $invoice = $request->code;
+        $order = Order::where('invoice_no' ,$invoice)->first();
+        return view('frontend.orders.trackOrders' ,compact('order'));
+    }//end function orderTracking
+
+
+    public function productSearch(Request $request){
+        $brands = Brand::latest()->orderBy('id' , 'DESC')->get();
+        $search = $request->search;
+        $products = Product::where('product_name_en' ,'LIKE' , "%$search%")->paginate(6);
+        $categories = Category::latest()->get();
+        return view('frontend.product.productFilters' , compact('products' , 'categories','brands'));
+    }//end function productSearch
+
+
+    public function productSearchAjax(Request $request){
+        $search = $request->search;
+        $products = Product::where('product_name_en','LIKE',"%$search%")->select('product_name_en','product_thambnail','selling_price','id','product_slug_en')->limit(5)->get();
+        return view('frontend.product.productSearch' , compact('products'));
+    }
 }

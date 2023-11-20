@@ -1,5 +1,6 @@
 @extends('frontend.master')
 @section('content')
+
 <div class="body-content outer-top-xs">
     <div class='container'>
       <div class='row'>
@@ -192,7 +193,7 @@
               <div class="tab-pane active " id="grid-container">
                 <div class="category-product">
                   <div class="row">
-                    
+
                     @foreach($products as $product)
                     <div class="col-sm-6 col-md-4 wow fadeInUp">
                       <div class="products">
@@ -216,7 +217,7 @@
                           <!-- /.product-image -->
 
                           <div class="product-info text-left">
-                            <h3 class="name"><a href="detail.html">@if(session()->get('language') == 'arabic') {{$product->product_name_ar}} @else {{$product->product_name_en}} @endif</a></h3>
+                            <h3 class="name"><a href="{{url('/product/details/'. $product->id.'/'.$product->product_slug_en)}}}">@if(session()->get('language') == 'arabic') {{$product->product_name_ar}} @else {{$product->product_name_en}} @endif</a></h3>
                             <div class="rating rateit-small"></div>
                             <div class="description"></div>
                             @if($product->discount_price)

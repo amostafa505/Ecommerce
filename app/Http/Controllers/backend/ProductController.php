@@ -98,15 +98,7 @@ class ProductController extends Controller
     }//end method
 
     public function updateProduct(Request $request){
-
-        // $file = $request->file('product_thambnail');
-        // $exten = $file->getClientOriginalExtension();
-        // $newname = uniqid() . '.' . $exten;
-        // //save file in the local drive & resize it
-        // Image::make($file)->resize(917,1000)->save('uploads/products/thambnails/'.$newname);
-        // dd($request);
         $product = Product::find($request->id);
-
         $product->brand_id = $request->brand_id;
         $product->category_id = $request->category_id;
         $product->subcategory_id = $request->subcategory_id;
@@ -129,28 +121,12 @@ class ProductController extends Controller
         $product->short_desc_ar = $request->short_desc_ar;
         $product->long_desc_en = $request->long_desc_en;
         $product->long_desc_ar = $request->long_desc_ar;
-        // $product->product_thambnail = $newname;
         $product->hot_deals = $request->hot_deals;
         $product->featured = $request->featured;
         $product->special_offer = $request->special_offer;
         $product->special_deals = $request->special_deals;
         $product->status = 1;
         $product->save();
-
-        //////////////////////Multi Image
-        // if($request->File('multi_img')){
-        //     $images = $request->file('multi_img');
-        //     foreach($images as $image){
-        //         $exten = $image->getClientOriginalExtension();
-        //         $imgName = uniqid() . '.' . $exten;
-        //         //save file in the local drive & resize it
-        //         Image::make($image)->resize(917,1000)->save('uploads/products/Multi-Images/'.$imgName);
-        //         $multi_img = New MultiImg;
-        //         $multi_img->product_id = $product->id;
-        //         $multi_img->image_name = $imgName;
-        //         $multi_img->save();
-        //     }
-        // }
 
         return redirect()->back()->with('success' , 'Product Updated Successfully');
 

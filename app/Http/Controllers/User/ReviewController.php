@@ -35,7 +35,7 @@ class ReviewController extends Controller
 
     public function approveReview($review_id){
         Review::where('id' , $review_id)->update(['status'=>1,'updated_at'=>now()]);
-        return redirect()->back()->with('success' , 'Review Returned Approved');
+        return redirect()->back()->with('success' , 'Review Approved');
     }//end function approveReview
 
     public function approvedReviews(){

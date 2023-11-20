@@ -104,7 +104,10 @@
 	      <!-- User Account-->
           <li class="dropdown user user-menu">
 			<a href="#" class="waves-effect waves-light rounded dropdown-toggle p-0" data-toggle="dropdown" title="User">
-				<img src="{{asset('backend/images/avatar/1.jpg')}}" alt="">
+                @php
+                    $admin = auth()->guard('admin')->user();
+                @endphp
+				<img src="{{url($admin->profile_photo_path)}}" alt="">
 			</a>
 			<ul class="dropdown-menu animated flipInX">
 			  <li class="user-body">

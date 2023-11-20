@@ -12,7 +12,7 @@
                 </div>
                 <div class="widget-user-image">
                     <img class="rounded-circle"
-                        src="{{ !empty($admin->profile_photo_path) ? url('uploads/admin_images/' . $admin->profile_photo_path) : url('uploads/no_image.jpg') }}"
+                        src="{{ !empty($admin->profile_photo_path) ? url($admin->profile_photo_path) : url('uploads/no_image.jpg') }}"
                         alt="User Avatar">
                 </div>
                 <div class="box-footer">

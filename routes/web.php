@@ -20,6 +20,7 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\frontend\languageController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\AdminUserRolesController;
 use App\Http\Controllers\backend\ShippingAreaController;
 use App\Http\Controllers\backend\SiteSettingController;
 use App\Http\Controllers\backend\SubSubCategoryController;
@@ -54,7 +55,7 @@ Route::middleware('auth:admin')->group(function(){
 
         // All Admin Brands Route
 
-        Route::prefix('Brand')->group(function(){
+        Route::prefix('brand')->group(function(){
             Route::get('/view' , [BrandController::class , 'viewBrand'])->name('all.brands');
             Route::post('/store' , [BrandController::class , 'store'])->name('add.brand');
             Route::get('/edit/{id}' , [BrandController::class , 'editBrand'])->name('edit.brand');
@@ -86,7 +87,7 @@ Route::middleware('auth:admin')->group(function(){
 
             // All Admin Product Route
 
-        Route::prefix('Product')->group(function(){
+        Route::prefix('product')->group(function(){
             Route::get('/view' , [ProductController::class , 'viewProduct'])->name('all.products');
             Route::get('/add' , [ProductController::class , 'addProduct'])->name('add.product');
             Route::post('/store' , [ProductController::class , 'store'])->name('store.product');
@@ -104,7 +105,7 @@ Route::middleware('auth:admin')->group(function(){
 
             // All Admin Slider Route
 
-            Route::prefix('Slider')->group(function(){
+            Route::prefix('slider')->group(function(){
                 Route::get('/view' , [SliderController::class , 'viewSlider'])->name('all.sliders');
                 Route::post('/store' , [SliderController::class , 'store'])->name('add.slider');
                 Route::get('/edit/{id}' , [SliderController::class , 'editSlider'])->name('edit.slider');
@@ -116,7 +117,7 @@ Route::middleware('auth:admin')->group(function(){
 
             // All Admin Coupon Route
 
-            Route::prefix('Coupon')->group(function(){
+            Route::prefix('coupon')->group(function(){
                 Route::get('/view' , [CouponController::class , 'viewCoupon'])->name('all.coupons');
                 Route::post('/store' , [CouponController::class , 'store'])->name('add.coupon');
                 Route::get('/edit/{id}' , [CouponController::class , 'editCoupon'])->name('edit.coupon');
@@ -175,7 +176,7 @@ Route::middleware('auth:admin')->group(function(){
 
             // All Admin Slider Route
 
-            Route::prefix('Report')->group(function(){
+            Route::prefix('report')->group(function(){
                 Route::get('/view' , [ReportController::class , 'viewReports'])->name('all.reports');
                 Route::post('/search/by/date', [ReportController::class, 'ReportByDate'])->name('search-by-date');
                 Route::post('/search/by/month', [ReportController::class, 'ReportByMonth'])->name('search-by-month');
@@ -219,8 +220,18 @@ Route::middleware('auth:admin')->group(function(){
             Route::prefix('review')->group(function(){
                 Route::get('/review/pending' , [ReviewController::class , 'pendingReviews'])->name('pending.reviews');
                 Route::get('/review/approved' , [ReviewController::class , 'approvedReviews'])->name('approved.reviews');
-                Route::get('/approve/review/{review_id}', [OrderController::class , 'approveReview'])->name('approve.review');
-                Route::get('/approve/delete/{review_id}', [OrderController::class , 'deleteReview'])->name('delete.review');
+                Route::get('/approve/review/{review_id}', [ReviewController::class , 'approveReview'])->name('approve.review');
+                Route::get('/approve/delete/{review_id}', [ReviewController::class , 'deleteReview'])->name('delete.review');
+            });
+
+            // All Admin User Role Route
+            Route::prefix('adminuserrole')->group(function(){
+                Route::get('/admin/view' , [AdminUserRolesController::class , 'adminsView'])->name('admins.view');
+                Route::get('/admin/Create' , [AdminUserRolesController::class , 'createAdmin'])->name('add.admin');
+                Route::post('/admin/store',[AdminUserRolesController::class , 'storeAdmin'])->name('admin.user.store');
+                Route::get('/admin/edit/{id}' , [AdminUserRolesController::class , 'adminEdit'])->name('admin.edit');
+                Route::post('/admin/update',[AdminUserRolesController::class , 'updateAdmin'])->name('admin_update');
+                Route::get('/admin/delete/{id}' , [AdminUserRolesController::class , 'deleteAdmin'])->name('admin.delete');
             });
 
     });
@@ -266,6 +277,9 @@ Route::get('/product/productWithCateogry/{id}/{slug}', [indexController::class ,
 Route::get('/product/productWithsubCateogry/{id}/{slug}', [indexController::class , 'subCategoryProducts'])->name('subCategory.Products');
 Route::get('/product/PWsubsubcategory/{id}/{slug}', [indexController::class , 'subSubCategoryProducts'])->name('subSubCategory.Products');
 
+// Product Search
+Route::post('/product/search', [indexController::class , 'productSearch'])->name('product.search');
+Route::post('/search-product' , [indexController::class , 'productSearchAjax']);
 
 //Getting Cities For Checkout Page
 Route::get('/City/ajax/{country_id}' ,  [ShippingAreaController::class , 'GetCity']);
@@ -339,6 +353,8 @@ Route::middleware(['user','auth'])->group(function () {
     //User Review Section
     Route::post('/user/review/{product_id}', [ReviewController::class , 'storeReview'])->name('user.review');
 
+    //Order Tracking
+    Route::post('/user/order/tracking' ,[indexController::class , 'orderTracking'])->name('order.tracking');
 
 });
 

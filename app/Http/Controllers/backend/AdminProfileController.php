@@ -38,7 +38,8 @@ class AdminProfileController extends Controller
                 $destenationpath = 'uploads/admin_images/';
                 // $newname = Storage::disk('s3')->put($destenationpath , $file);
                 $file->move($destenationpath , $newname);
-                $admin->profile_photo_path = $newname;
+                $photo_url = 'uploads/admin_images/'.$newname;
+                $admin->profile_photo_path = $photo_url;
             }
         }
         $admin->name = $request->name;
@@ -75,7 +76,9 @@ class AdminProfileController extends Controller
 
 
     public function viewAllUsers(){
-        $users = User::latest()->get();
+        if(Auth::guard('admin')->user()){
+            $users = User::latest()->get();
+        }
         return view('backend.users.allUsers',compact('users'));
     }//end viewAllUsers function
 }
